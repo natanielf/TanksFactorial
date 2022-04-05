@@ -1,14 +1,18 @@
 import java.awt.Color;
 
+//Waiting on the World to Change!
+
 public class Tank {
-	private int x;
-	private int y;
+	private int x, y, ammo, max;
+	private double health, speed, charge;
 	private Color color;
 	
 	public Tank(int pX, int pY, Color pColor) {
 		x = pX;
 		y = pY;
 		color = pColor;
+		
+		
 	}
 
 	public int getX() {
@@ -27,3 +31,4 @@ public class Tank {
 		y = pY;
 	}
 }
+
