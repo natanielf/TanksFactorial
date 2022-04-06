@@ -5,13 +5,10 @@ import java.awt.Color;
 public class Tank {
 	private int x, y, ammo, max;
 	private double health, speed, charge;
-	private Color color;
 
-	public Tank(int pX, int pY, Color pColor) {
+	public Tank(int pX, int pY) {
 		x = pX;
 		y = pY;
-		color = pColor;
-
 	}
 
 	public int getX() {
