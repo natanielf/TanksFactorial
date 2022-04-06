@@ -19,8 +19,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	private JFrame f;
 	private Timer t;
+	private Mouse m;
 	private int width, height;
-	private boolean mousePressed;
 
 	public Frame() {
 		this.f = new JFrame("Tanks!");
@@ -31,16 +31,16 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.f.setLayout(new GridLayout(1, 2));
 		this.f.addMouseListener(this);
 		this.f.addKeyListener(this);
+		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.t = new Timer(16, this);
 		this.t.start();
-		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.f.setVisible(true);
 
 		init();
 	}
 
 	public void paint(Graphics g) {
-
+		System.out.println("test");
 	}
 
 	public static void main(String[] args) {
@@ -50,7 +50,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void init() {
 		this.width = f.getWidth();
 		this.height = f.getHeight();
-		this.mousePressed = false;
+		this.m = new Mouse();
 	}
 
 	@Override
@@ -94,17 +94,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		this.mousePressed = true;
+		m.setPressed(true);
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		this.mousePressed = false;
+		m.setPressed(false);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		this.width = f.getWidth();
 		this.height = f.getHeight();
+		repaint();
 	}
 }
