@@ -16,82 +16,95 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
-	
+
+	private JFrame f;
+	private Timer t;
+	private int width, height;
+	private boolean mousePressed;
+
 	public Frame() {
-		JFrame f = new JFrame("Tanks!");
-		f.setSize(new Dimension(900, 600));
-		f.setSize(900, 600);
-		f.add(this);
-		f.setResizable(false);
-		f.setLayout(new GridLayout(1, 2));
-		f.addMouseListener(this);
-		f.addKeyListener(this);
-		Timer t = new Timer(16, this); // delay
-		t.start();
-		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setVisible(true);
+		this.f = new JFrame("Tanks!");
+		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
+		this.f.setMinimumSize(new Dimension(1280, 720));
+		this.f.add(this);
+		this.f.setResizable(true);
+		this.f.setLayout(new GridLayout(1, 2));
+		this.f.addMouseListener(this);
+		this.f.addKeyListener(this);
+		this.t = new Timer(16, this);
+		this.t.start();
+		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.f.setVisible(true);
+
+		init();
 	}
-	
+
 	public void paint(Graphics g) {
-		
+
 	}
-	
+
 	public static void main(String[] args) {
-		Frame f = new Frame();
-		System.out.println("Hello World!");
+		new Frame();
+	}
+
+	public void init() {
+		this.width = f.getWidth();
+		this.height = f.getHeight();
+		this.mousePressed = false;
 	}
 
 	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void keyPressed(KeyEvent e) {
+		switch (Character.toUpperCase(e.getKeyChar())) {
+		case 'W':
+			break;
+		case 'A':
+			break;
+		case 'S':
+			break;
+		case 'D':
+			break;
+		}
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.mousePressed = true;
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.mousePressed = false;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		
+		this.width = f.getWidth();
+		this.height = f.getHeight();
 	}
 }
