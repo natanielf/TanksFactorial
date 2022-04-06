@@ -21,7 +21,7 @@ public class Tank {
 	public void setX(int pX) {
 		x = pX;
 	}
-
+ 
 	public int getY() {
 		return y;
 	}

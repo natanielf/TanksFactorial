@@ -41,7 +41,7 @@ public class Tile {
 			txtr = "tile2";
 		}
 		if (type == 3) {
-			floor = true;
+			floor = true; 
 			clear = true;
 			frail = false;
 			speed = 0.6;
