@@ -15,7 +15,7 @@ public class Tile {
 	int type;
 	protected boolean floor, clear, frail;
 	protected double speed;
-	private String txtr;
+	private String txtr; 
 
 	public Tile() {
 		type = 0;
