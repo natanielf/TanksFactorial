@@ -1,5 +1,6 @@
 import java.awt.Graphics;
 import java.awt.Color;
+import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
@@ -21,14 +22,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private Timer t;
 	private Mouse m;
 	private int width, height;
+	private boolean ctrlKeyPressed;
 
 	public Frame() {
 		this.f = new JFrame("Tanks!");
 		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
-		this.f.setMinimumSize(new Dimension(1280, 720));
+		this.f.setMinimumSize(new Dimension(1024, 576));
+		this.f.setCursor(Cursor.getPredefinedCursor(Cursor.CROSSHAIR_CURSOR));
 		this.f.add(this);
 		this.f.setResizable(true);
-		this.f.setLayout(new GridLayout(1, 2));
 		this.f.addMouseListener(this);
 		this.f.addKeyListener(this);
 		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -40,7 +42,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	}
 
 	public void paint(Graphics g) {
-		System.out.println("test");
+
 	}
 
 	public static void main(String[] args) {
@@ -51,6 +53,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.width = f.getWidth();
 		this.height = f.getHeight();
 		this.m = new Mouse();
+		this.ctrlKeyPressed = false;
 	}
 
 	@Override
@@ -65,11 +68,16 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		case 'D':
 			break;
 		}
+		if (e.getKeyCode() == 17)
+			this.ctrlKeyPressed = true;
+		if (e.getKeyCode() == 81 && this.ctrlKeyPressed)
+			System.exit(0);
 	}
 
 	@Override
 	public void keyReleased(KeyEvent e) {
-
+		if (e.getKeyCode() == 17)
+			this.ctrlKeyPressed = false;
 	}
 
 	@Override
