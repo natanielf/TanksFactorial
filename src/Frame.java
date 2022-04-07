@@ -37,7 +37,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.t = new Timer(16, this);
 		this.t.start();
 		this.f.setVisible(true);
-
 		init();
 	}
 
