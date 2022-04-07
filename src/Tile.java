@@ -18,12 +18,15 @@ public class Tile {
 	private String txtr; 
 
 	public Tile() {
-		type = 0;
-		floor = true;
 		clear = true;
-		frail = false;
 		speed = 1;
 		txtr = "tile0";
+	}
+	
+	public Tile(double s) {
+		clear = true;
+		speed = s;
+		txtr = "tile1";
 	}
 
 	public void frag() {
