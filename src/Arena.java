@@ -21,7 +21,7 @@ public class Arena {
 			for (int c = 0; c < 24; c++) {
 				arena[r][c].paint(g, r * tileSize, c * tileSize);
 			}
-		}
+		} 
 	}
 
 	// TODO: Text file input
