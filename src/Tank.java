@@ -3,8 +3,8 @@ import java.awt.Color;
 //Waiting on the World to Change!
 
 public class Tank {
-	private int x, y, ammo, max;
-	private double health, speed, charge;
+	protected int x, y, ammo, max;
+	protected double health, speed, charge;
 
 	public Tank(int pX, int pY) {
 		x = pX;
