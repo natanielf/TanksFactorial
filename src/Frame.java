@@ -38,6 +38,10 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		init();
 		this.t.start();
 		this.f.setVisible(true);
+<<<<<<< HEAD
+=======
+		init();
+>>>>>>> branch 'main' of https://github.com/natanielf/TanksFactorial.git
 	}
 
 	public void paint(Graphics g) {
