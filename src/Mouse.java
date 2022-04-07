@@ -6,7 +6,7 @@ public class Mouse {
 	private int numButtons;
 	private Point location;
 	private double x, y;
-	private boolean pressed;
+	private boolean pressed, onWindow;
 
 	public Mouse() {
 		this.numButtons = MouseInfo.getNumberOfButtons();
@@ -14,6 +14,18 @@ public class Mouse {
 		this.x = location.getX();
 		this.y = location.getY();
 		this.pressed = false;
+		this.onWindow = true;
+	}
+
+	public void update() {
+		this.location = MouseInfo.getPointerInfo().getLocation();
+		this.x = location.getX();
+		this.y = location.getY();
+	}
+
+	@Override
+	public String toString() {
+		return this.x + ", " + this.y;
 	}
 
 	public double getX() {
@@ -30,6 +42,14 @@ public class Mouse {
 
 	public void setPressed(boolean pressed) {
 		this.pressed = pressed;
+	}
+
+	public boolean isOnWindow() {
+		return onWindow;
+	}
+
+	public void setOnWindow(boolean onWindow) {
+		this.onWindow = onWindow;
 	}
 
 }
