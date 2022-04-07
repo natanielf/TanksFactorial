@@ -22,9 +22,5 @@ public class Bullet {
 			vX = Math.abs(vX);
 		}
 	}
-	
-	
-	
-	
-	
+
 }

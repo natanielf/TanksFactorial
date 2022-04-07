@@ -1,5 +1,3 @@
-//Waiting on the World to Change!
-
 public class Tank {
 	protected int x, y, ammo, max;
 	protected double health, speed, charge;
@@ -8,21 +6,21 @@ public class Tank {
 		x = pX;
 		y = pY;
 	}
-	
+
 	public void moveNorth() {
-	
+
 	}
-	
+
 	public void moveSouth() {
-	
+
 	}
-	
+
 	public void moveEast() {
-	
+
 	}
-	
+
 	public void moveWest() {
-	
+
 	}
 
 //	public int getX() {
@@ -32,7 +30,7 @@ public class Tank {
 //	public void setX(int pX) {
 //		x = pX;
 //	}
- 
+
 //	public int getY() {
 //		return y;
 //	}
