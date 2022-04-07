@@ -35,10 +35,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.f.addKeyListener(this);
 		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.t = new Timer(16, this);
+		init();
 		this.t.start();
 		this.f.setVisible(true);
-
-		init();
 	}
 
 	public void paint(Graphics g) {
@@ -92,12 +91,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
-
+		m.setOnWindow(true);
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
-
+		m.setOnWindow(false);
 	}
 
 	@Override
@@ -114,6 +113,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void actionPerformed(ActionEvent e) {
 		this.width = f.getWidth();
 		this.height = f.getHeight();
+		m.update();
 		repaint();
 	}
 }
