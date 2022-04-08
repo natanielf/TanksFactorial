@@ -26,4 +26,12 @@ public class PlayerTank extends Tank {
 	public void moveWest() {
 		x -= speedX;
 	}
+	
+	public void placeMine() {
+		
+	}
+	
+	public void shoot() {
+		
+	}
 }
