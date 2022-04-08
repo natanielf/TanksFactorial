@@ -8,7 +8,7 @@ public class Tank {
 	}
 
 	public void moveNorth() {
-
+		
 	}
 
 	public void moveSouth() {

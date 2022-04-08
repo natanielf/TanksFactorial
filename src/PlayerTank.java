@@ -1,10 +1,10 @@
 import java.awt.Color;
 
-public class MainTank extends Tank {
+public class PlayerTank extends Tank {
 	private Color color;
 	private int speedX, speedY;
 	
-	public MainTank(int x, int y) {
+	public PlayerTank(int x, int y) {
 		super(x, y);
 		color = Color.BLUE;
 		speedX = 10;
