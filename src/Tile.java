@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.awt.Graphics;
 
 public class Tile {
@@ -35,7 +36,8 @@ public class Tile {
 		}
 	}
 
-	public void paint(Graphics g, int x, int y) {
-
+	public void paint(Graphics g, int x, int y, int size) {
+		g.setColor(new Color(100, 200, 50));
+		g.fillRect(x, y, size, size);
 	}
 }
