@@ -1,3 +1,5 @@
+import java.awt.Color;
+import java.awt.Graphics;
 import java.awt.MouseInfo;
 import java.awt.Point;
 
@@ -21,6 +23,11 @@ public class Mouse {
 		this.location = MouseInfo.getPointerInfo().getLocation();
 		this.x = location.getX();
 		this.y = location.getY();
+	}
+
+	public void paintAimLine(Graphics g, int tankX, int tankY) {
+		g.setColor(Color.black);
+		g.drawLine(tankX + 18, tankY + 18, (int) this.x, (int) this.y - 24);
 	}
 
 	@Override

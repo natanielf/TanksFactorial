@@ -36,15 +36,17 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.f.addMouseListener(this);
 		this.f.addKeyListener(this);
 		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.t = new Timer(16, this);
+		this.t = new Timer(8, this);
 		init();
 		this.t.start();
 		this.f.setVisible(true);
 	}
 
 	public void paint(Graphics g) {
+		paintBackground(g);
 		arena.paint(g);
 		tank.paint(g);
+		m.paintAimLine(g, tank.getX(), tank.getY());
 	}
 
 	public static void main(String[] args) {
@@ -57,7 +59,12 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
 		this.arena = new Arena();
-		this.tank = new PlayerTank(99,99);
+		this.tank = new PlayerTank(99, 99);
+	}
+
+	public void paintBackground(Graphics g) {
+		g.setColor(Color.white);
+		g.fillRect(0, 0, width, height);
 	}
 
 	@Override
@@ -98,16 +105,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 			tank.stopX();
 			break;
 		}
-		
-		
-		
 		if (e.getKeyCode() == 17)
 			this.ctrlKeyPressed = false;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-		
+
 	}
 
 	@Override

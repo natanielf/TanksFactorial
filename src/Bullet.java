@@ -2,7 +2,7 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Bullet {
-	
+
 	protected int x, y, vX, vY, size;
 	private Color color;
 
@@ -14,21 +14,21 @@ public class Bullet {
 		size = 10;
 		color = new Color(25, 90, 150);
 	}
-	
+
 	public void paint(Graphics g) {
 		Color oldColor = g.getColor();
 		g.setColor(color);
 		x += vX;
 		y += vY;
 		g.fillOval(x, y, 10, 10);
-		
-		//TODO: 
-		
+
+		// TODO:
+
 	}
-	
+
 	public void bounce(int d) {
-		switch(d) {
-		
+		switch (d) {
+
 		case 0:
 			vY = 0 - vY;
 		case 1:
@@ -39,8 +39,5 @@ public class Bullet {
 			vX = Math.abs(vX);
 		}
 	}
-	
-	
-	
 
 }
