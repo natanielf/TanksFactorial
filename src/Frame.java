@@ -24,6 +24,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private Arena arena;
 	private int width, height;
 	private boolean ctrlKeyPressed;
+	private PlayerTank tank;
 
 	public Frame() {
 		this.f = new JFrame("Tanks!");
@@ -43,6 +44,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	public void paint(Graphics g) {
 		arena.paint(g);
+		tank.paint(g);
 	}
 
 	public static void main(String[] args) {
@@ -55,18 +57,23 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
 		this.arena = new Arena();
+		this.tank = new PlayerTank(99,99);
 	}
 
 	@Override
 	public void keyPressed(KeyEvent e) {
 		switch (Character.toUpperCase(e.getKeyChar())) {
 		case 'W':
+			tank.moveNorth();
 			break;
 		case 'A':
+			tank.moveWest();
 			break;
 		case 'S':
+			tank.moveSouth();
 			break;
 		case 'D':
+			tank.moveEast();
 			break;
 		}
 		if (e.getKeyCode() == 17)
@@ -77,13 +84,30 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	@Override
 	public void keyReleased(KeyEvent e) {
+		switch (Character.toUpperCase(e.getKeyChar())) {
+		case 'W':
+			tank.stopY();
+			break;
+		case 'A':
+			tank.stopX();
+			break;
+		case 'S':
+			tank.stopY();
+			break;
+		case 'D':
+			tank.stopX();
+			break;
+		}
+		
+		
+		
 		if (e.getKeyCode() == 17)
 			this.ctrlKeyPressed = false;
 	}
 
 	@Override
 	public void keyTyped(KeyEvent e) {
-
+		
 	}
 
 	@Override
