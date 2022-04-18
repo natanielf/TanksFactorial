@@ -42,7 +42,6 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	}
 
 	public void paint(Graphics g) {
-		arena.updateSize(width, height);
 		arena.paint(g);
 	}
 
@@ -55,7 +54,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.height = f.getHeight();
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
-		this.arena = new Arena(width, height);
+		this.arena = new Arena();
 	}
 
 	@Override

@@ -8,11 +8,11 @@ public class Arena {
 	private int tileSize, tileSpacer;
 
 	public Arena() {
-		this.rows = 16;
-		this.cols = 24;
+		this.rows = 18;
+		this.cols = 32;
 		createArena();
-		this.tileSize = 24;
-		this.tileSpacer = 5;
+		this.tileSize = 36;
+		this.tileSpacer = 3;
 	}
 
 	public Arena(int fW, int fH) {
