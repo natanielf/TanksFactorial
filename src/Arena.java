@@ -2,7 +2,7 @@ import java.awt.Graphics;
 
 public class Arena {
 
-	private Tile[][] arena;
+	private Tile[][] grid;
 	private int width, height;
 	private int rows, cols;
 	private int tileSize, tileSpacer;
@@ -27,16 +27,16 @@ public class Arena {
 	public void paint(Graphics g) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				arena[r][c].paint(g, c * tileSize + (tileSpacer * c), r * tileSize + (tileSpacer * r), tileSize);
+				grid[r][c].paint(g, c * tileSize + (tileSpacer * c), r * tileSize + (tileSpacer * r), tileSize);
 			}
 		}
 	}
 
 	public void createArena() {
-		this.arena = new Tile[rows][cols];
+		this.grid = new Tile[rows][cols];
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				arena[r][c] = new Tile();
+				grid[r][c] = new Tile();
 			}
 		}
 	}

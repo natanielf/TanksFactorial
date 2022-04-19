@@ -116,7 +116,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-
+		tank.shoot();
 	}
 
 	@Override

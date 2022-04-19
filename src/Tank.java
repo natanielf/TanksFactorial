@@ -22,19 +22,19 @@ public class Tank {
 	}
 
 	public void moveEast() {
-		speedX = 3;
+		speedX = 2;
 	}
 
 	public void moveWest() {
-		speedX = -3;
+		speedX = -2;
 	}
 
 	public void moveNorth() {
-		speedY = -3;
+		speedY = -2;
 	}
 
 	public void moveSouth() {
-		speedY = 3;
+		speedY = 2;
 	}
 
 	public void stopX() {
