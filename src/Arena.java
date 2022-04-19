@@ -12,7 +12,7 @@ public class Arena {
 		this.cols = 32;
 		createArena();
 		this.tileSize = 36;
-		this.tileSpacer = 3;
+		this.tileSpacer = 2;
 	}
 
 	public Arena(int fW, int fH) {
@@ -24,7 +24,6 @@ public class Arena {
 		this.tileSpacer = 3;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
 	}
-
 	public void paint(Graphics g) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
