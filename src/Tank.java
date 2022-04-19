@@ -2,47 +2,58 @@ import java.awt.Color;
 import java.awt.Graphics;
 
 public class Tank {
-	protected int x, y, ammo, max, speedX, speedY;
+	//mult(iplier) is used to make sure tank movement is consistent with screen size
+	private int mult;
+	protected int x, y, ammo, max, vX, vY, speed;
 	protected double health, speedM, charge;
 	protected Color color;
 
 	public Tank(int pX, int pY) {
-		x = pX;
-		y = pY;
-		speedX = 0;
-		speedY = 0;
+		mult = 1;
+		x = pX;		y = pY;
+		vX = 0;		vY = 0;
+		speed = 3;
+		color = new Color(0, 0, 0);
+	}
+	
+	public Tank(int pX, int pY, int m) {
+		mult = m;
+		//TODO: Instead of inputting the x and y coords, input the tile row and col
+		x = pX;		y = pY;
+		vX = 0;		vY = 0;
+		speed = 3 * mult;
 		color = new Color(0, 0, 0);
 	}
 
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillRect(x, y, 36, 36);
-		x += speedX;
-		y += speedY;
+		g.fillRect(x * mult, y * mult, 36 * mult, 36 * mult);
+		x += vX;
+		y += vY;
 	}
 
 	public void moveEast() {
-		speedX = 2;
+		vX = speed;
 	}
 
 	public void moveWest() {
-		speedX = -2;
+		vX = -speed;
 	}
 
 	public void moveNorth() {
-		speedY = -2;
+		vY = -speed;
 	}
 
 	public void moveSouth() {
-		speedY = 2;
+		vY = speed;
 	}
 
 	public void stopX() {
-		speedX = 0;
+		vX = 0;
 	}
 
 	public void stopY() {
-		speedY = 0;
+		vY = 0;
 	}
 
 	public int getX() {
