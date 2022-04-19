@@ -47,8 +47,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		arena.paint(g);
 		tank.paint(g);
 		m.paintAimLine(g, tank.getX(), tank.getY());
-		//x max: 1366
-		//y max: 705
+		//small x max: 1366
+		//small y max: 705
+		g.fillRect(0,0, 1920, 20);
+		//large x max: 1920
+		//large y max: 1017
 	}
 
 	public static void main(String[] args) {
