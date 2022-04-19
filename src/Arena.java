@@ -11,7 +11,7 @@ public class Arena {
 		this.rows = 18;
 		this.cols = 32;
 		createArena();
-		this.tileSize = 36;
+		this.tileSize = 30;
 		this.tileSpacer = 2;
 	}
 
