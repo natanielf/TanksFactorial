@@ -25,8 +25,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private int width, height;
 	private boolean ctrlKeyPressed;
 	private PlayerTank tank;
+	private int mult;
 
-	public Frame() {
+	public Frame(int m) {
+		mult = m;
+		
 		this.f = new JFrame("Tanks!");
 		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.f.setMinimumSize(new Dimension(1024, 576));
@@ -49,13 +52,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		m.paintAimLine(g, tank.getX(), tank.getY());
 		//small x max: 1366
 		//small y max: 705
-		g.fillRect(0,0, 1920, 20);
 		//large x max: 1920
 		//large y max: 1017
+		
 	}
 
 	public static void main(String[] args) {
-		new Frame();
+		new Frame(1);
 	}
 
 	public void init() {
@@ -68,8 +71,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	}
 
 	public void paintBackground(Graphics g) {
-		g.setColor(Color.white);
-		g.fillRect(0, 0, width, height);
+		g.setColor(Color.lightGray);
+		g.fillRect(0, 0, 950*mult, 500*mult);
 	}
 
 	@Override

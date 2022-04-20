@@ -16,23 +16,21 @@ public class Arena {
 		mult = 1;
 	}
 
-	public Arena(int fW, int fH) {
-		this.rows = 18;
-		this.cols = 32;
-		createArena();
-		this.width = fW;
-		this.height = fH;
-		this.tileSpacer = 3;
-		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
-		mult = 1;
-	}
+//	public Arena(int fW, int fH) {
+//		this.rows = 18;
+//		this.cols = 32;
+//		createArena();
+//		this.width = fW;
+//		this.height = fH;
+//		this.tileSpacer = 3;
+//		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+//		mult = 1;
+//	}
 	
-	public Arena(int fW, int fH, int m) {
+	public Arena(int m) {
 		this.rows = 18;
 		this.cols = 32;
 		createArena();
-		this.width = fW;
-		this.height = fH;
 		this.tileSpacer = 3;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
 		mult = m;
