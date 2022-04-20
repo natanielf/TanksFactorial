@@ -9,6 +9,7 @@ public class Mouse {
 	private Point location;
 	private double x, y;
 	private boolean pressed, onWindow;
+	private PlayerTank tank;
 
 	public Mouse() {
 		this.numButtons = MouseInfo.getNumberOfButtons();
@@ -42,7 +43,19 @@ public class Mouse {
 	public double getY() {
 		return this.y;
 	}
-
+	
+	public double getXDistance() {
+		return this.x - tank.getX();
+	}
+	
+	public double getYDistance() {
+		return this.y - tank.getY();
+	}
+	
+	public double getAngleInRadians() {
+		return Math.atan(getXDistance() / getYDistance());
+	}
+	
 	public boolean isPressed() {
 		return this.pressed;
 	}
