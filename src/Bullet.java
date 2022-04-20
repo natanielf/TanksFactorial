@@ -2,7 +2,6 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Bullet {
-
 	protected int x, y, vX, vY, size;
 	private Color color;
 
