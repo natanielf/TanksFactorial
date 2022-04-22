@@ -44,16 +44,16 @@ public class Mouse {
 		return this.y;
 	}
 	
-	public double getXDistance() {
+	public double getXDisplacement() {
 		return this.x - tank.getX();
 	}
 	
-	public double getYDistance() {
+	public double getYDisplacement() {
 		return this.y - tank.getY();
 	}
 	
 	public double getAngleInRadians() {
-		return Math.atan(getXDistance() / getYDistance());
+		return Math.atan(getYDisplacement() / getXDisplacement());
 	}
 	
 	public boolean isPressed() {

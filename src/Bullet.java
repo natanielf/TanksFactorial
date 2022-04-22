@@ -22,12 +22,12 @@ public class Bullet {
 		g.fillOval(x, y, 10, 10);
 
 		// TODO:
-
+		
 	}
 
 	public void bounce(int d) {
 		switch (d) {
-
+		
 		case 0:
 			vY = 0 - vY;
 		case 1:
@@ -38,5 +38,4 @@ public class Bullet {
 			vX = Math.abs(vX);
 		}
 	}
-
 }
