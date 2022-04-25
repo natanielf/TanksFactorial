@@ -77,7 +77,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		
 		
 
-		i = img.img("wiiTanks.jpg");
+//		i = img.img("wiiTanks.jpg");
 	}
 
 	public void paintBackground(Graphics g) {
