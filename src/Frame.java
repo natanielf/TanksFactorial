@@ -4,7 +4,9 @@ import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Image;
 import java.awt.MouseInfo;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -15,9 +17,13 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.net.URL;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 
+	private Image i;
+	private Img img;
+	
 	private JFrame f;
 	private Timer t;
 	private Mouse m;
@@ -29,7 +35,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	public Frame(int m) {
 		mult = m;
-		
+
 		this.f = new JFrame("Tanks!");
 		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.f.setMinimumSize(new Dimension(1024, 576));
@@ -48,31 +54,35 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void paint(Graphics g) {
 		paintBackground(g);
 		arena.paint(g);
+		g.drawImage(i, 10, 10, null);
 		tank.paint(g);
 		m.paintAimLine(g, tank.getX(), tank.getY());
-		//small x max: 1366
-		//small y max: 705
-		//large x max: 1920
-		//large y max: 1017
-		
+		// small x max: 1366
+		// small y max: 705
+		// large x max: 1920
+		// large y max: 1017
 	}
 
 	public static void main(String[] args) {
-		new Frame(1);
+		new Frame(2);
 	}
 
-	public void init() {
+	public void init() { 
 		this.width = f.getWidth();
 		this.height = f.getHeight();
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
 		this.arena = new Arena();
-		this.tank = new PlayerTank(99, 99);
+		this.tank = new PlayerTank(10, 10); 
+		
+		
+
+		i = img.img("wiiTanks.jpg");
 	}
 
 	public void paintBackground(Graphics g) {
 		g.setColor(Color.lightGray);
-		g.fillRect(0, 0, 950*mult, 500*mult);
+		g.fillRect(0, 0, 950 * mult, 500 * mult);
 	}
 
 	@Override

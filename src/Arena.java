@@ -17,7 +17,7 @@ public class Arena {
 	}
 
 //	public Arena(int fW, int fH) {
-//		this.rows = 18;
+//		this.rows = 18; 
 //		this.cols = 32;
 //		createArena();
 //		this.width = fW;

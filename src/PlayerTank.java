@@ -6,7 +6,7 @@ public class PlayerTank extends Tank {
 		super.color = Color.BLUE;
 	}
 	
-	public void placeMine() {
+	public void placeMine() { 
 		System.out.println("BEEEEM!");
 	}
 	

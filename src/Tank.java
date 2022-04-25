@@ -1,8 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Image;
+
 
 public class Tank {
-	//mult(iplier) is used to make sure tank movement is consistent with screen size
+	
+	private Img img;
+	private Image image;
+	
 	private int mult;
 	protected int x, y, ammo, max, vX, vY, speed;
 	protected double health, speedM, charge;
@@ -17,6 +22,9 @@ public class Tank {
 	}
 	
 	public Tank(int pX, int pY, int m) {
+		
+		image = img.img("yellow.png");
+		
 		mult = m;
 		//TODO: Instead of inputting the x and y coords, input the tile row and col
 		x = pX;		y = pY;
@@ -27,7 +35,8 @@ public class Tank {
 
 	public void paint(Graphics g) {
 		g.setColor(color);
-		g.fillRect(x * mult, y * mult, 36 * mult, 36 * mult);
+		g.fillRect(x , y , 36 * mult, 36 * mult);
+		g.drawImage(image, x*mult, y*mult, null);
 		x += vX;
 		y += vY;
 	}
@@ -46,7 +55,7 @@ public class Tank {
 
 	public void moveSouth() {
 		vY = speed;
-	}
+	} 
 
 	public void stopX() {
 		vX = 0;
