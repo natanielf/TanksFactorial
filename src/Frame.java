@@ -23,7 +23,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	private Image i;
 	private Img img;
-	
+
 	private JFrame f;
 	private Timer t;
 	private Mouse m;
@@ -67,17 +67,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		new Frame(2);
 	}
 
-	public void init() { 
+	public void init() {
 		this.width = f.getWidth();
 		this.height = f.getHeight();
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
 		this.arena = new Arena();
-		this.tank = new PlayerTank(10, 10); 
-		
-		
-
-//		i = img.img("wiiTanks.jpg");
+		this.tank = new PlayerTank(10, 10, 0, 10, arena.getWidth(), arena.getHeight());
 	}
 
 	public void paintBackground(Graphics g) {

@@ -1,11 +1,10 @@
 import java.awt.Graphics;
 
 public class Arena {
-	//mult(iplier) can be used to increase the size of the game screen
+	// mult(iplier) can be used to increase the size of the game screen
 	private int mult;
 	protected Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
-	
 
 	public Arena() {
 		this.rows = 18;
@@ -26,7 +25,7 @@ public class Arena {
 //		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
 //		mult = 1;
 //	}
-	
+
 	public Arena(int m) {
 		this.rows = 18;
 		this.cols = 32;
@@ -35,12 +34,12 @@ public class Arena {
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
 		mult = m;
 	}
-	
-	
+
 	public void paint(Graphics g) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				grid[r][c].paint(g, c * tileSize + (tileSpacer * c) * mult, r * tileSize + (tileSpacer * r) * mult, tileSize * mult);
+				grid[r][c].paint(g, c * tileSize + (tileSpacer * c) * mult, r * tileSize + (tileSpacer * r) * mult,
+						tileSize * mult);
 			}
 		}
 	}
@@ -58,6 +57,22 @@ public class Arena {
 		this.width = fW;
 		this.height = fH;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
 	}
 
 	// TODO: Text file input

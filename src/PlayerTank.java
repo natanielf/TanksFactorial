@@ -6,6 +6,11 @@ public class PlayerTank extends Tank {
 		super.color = Color.BLUE;
 	}
 	
+	public PlayerTank(int pX, int pY, int minXVal, int minYVal, int maxXVal, int maxYVal) {
+		super(pX, pY, minXVal, minYVal, maxXVal, maxYVal);
+		super.color = Color.BLUE;
+	}
+	
 	public void placeMine() { 
 		System.out.println("BEEEEM!");
 	}
