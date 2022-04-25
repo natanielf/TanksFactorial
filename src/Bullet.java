@@ -2,27 +2,26 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Bullet {
-	protected int x, y, vX, vY, size;
+	protected int x, y, vX, vY, size, speed;
 	private Color color;
+	private Mouse mouse;
 
-	public Bullet(int x, int y, int vX, int vY) {
+	public Bullet(int x, int y, int vX, int vY, Mouse mouse) {
 		this.x = x;
 		this.y = y;
 		this.vX = vX;
 		this.vY = vY;
 		size = 10;
+		speed = 3;
 		color = new Color(25, 90, 150);
+		this.mouse = mouse;
 	}
 
 	public void paint(Graphics g) {
-		Color oldColor = g.getColor();
 		g.setColor(color);
 		x += vX;
 		y += vY;
 		g.fillOval(x, y, 10, 10);
-
-		// TODO:
-		
 	}
 
 	public void bounce(int d) {
@@ -37,5 +36,15 @@ public class Bullet {
 		case 3:
 			vX = Math.abs(vX);
 		}
+	}
+	
+	public void setVelocityX() {
+		// TODO
+		vX *= Math.cos(mouse.getAngleInRadians());
+	}
+	
+	public void setVelocityY() {
+		// TODO
+		vY *= Math.sin(mouse.getAngleInRadians());
 	}
 }

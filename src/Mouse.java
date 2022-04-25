@@ -4,7 +4,6 @@ import java.awt.MouseInfo;
 import java.awt.Point;
 
 public class Mouse {
-
 	private int numButtons;
 	private Point location;
 	private double x, y;
@@ -43,19 +42,22 @@ public class Mouse {
 	public double getY() {
 		return this.y;
 	}
-	
+
 	public double getXDisplacement() {
+		// TODO
 		return this.x - tank.getX();
 	}
-	
+
 	public double getYDisplacement() {
+		// TODO
 		return this.y - tank.getY();
 	}
-	
+
 	public double getAngleInRadians() {
+		// TODO
 		return Math.atan(getYDisplacement() / getXDisplacement());
 	}
-	
+
 	public boolean isPressed() {
 		return this.pressed;
 	}
