@@ -44,18 +44,21 @@ public class Mouse {
 	}
 
 	public double getXDisplacement() {
-		// TODO
 		return this.x - tank.getX();
 	}
 
 	public double getYDisplacement() {
-		// TODO
 		return this.y - tank.getY();
 	}
 
 	public double getAngleInRadians() {
-		// TODO
-		return Math.atan(getYDisplacement() / getXDisplacement());
+		if (getXDisplacement() == 0 && getYDisplacement() > 0) {
+			return Math.PI / 2;
+		} else if (getXDisplacement() == 0 && getYDisplacement() < 0) {
+			return (-1 * Math.PI) / 2;
+		} else {
+			return Math.atan(getYDisplacement() / getXDisplacement());
+		}
 	}
 
 	public boolean isPressed() {
