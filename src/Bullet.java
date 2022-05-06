@@ -2,11 +2,12 @@ import java.awt.Graphics;
 import java.awt.Color;
 
 public class Bullet {
-	protected int x, y, vX, vY, size, speed;
+	protected int x, y, size, speed;
+	protected double vX, vY;
 	private Color color;
 	private Mouse mouse;
 
-	public Bullet(int x, int y, int vX, int vY, Mouse mouse) {
+	public Bullet(int x, int y, double vX, double vY, Mouse mouse) {
 		this.x = x;
 		this.y = y;
 		this.vX = vX;
@@ -39,12 +40,10 @@ public class Bullet {
 	}
 	
 	public void setVelocityX() {
-		// TODO
-		vX *= Math.cos(mouse.getAngleInRadians());
+		vX = speed * Math.cos(mouse.getAngleInRadians());
 	}
 	
 	public void setVelocityY() {
-		// TODO
-		vY *= Math.sin(mouse.getAngleInRadians());
+		vY = speed * Math.sin(mouse.getAngleInRadians());
 	}
 }
