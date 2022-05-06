@@ -9,12 +9,13 @@ public class Tile {
 	 * tile7 = Powerup tile tile8 = Ice tile(???)
 	 */
 
-	int type;
+	private int type;
 	protected boolean floor, clear, frail;
 	protected double speed;
 	private String txtr;
 
 	public Tile() {
+		type = 0;
 		clear = true;
 		speed = 1;
 		txtr = "tile0";
@@ -37,7 +38,23 @@ public class Tile {
 	}
 
 	public void paint(Graphics g, int x, int y, int size) {
-		g.setColor(new Color(100, 200, 50));
+		switch (this.type) {
+		case 0:
+			g.setColor(new Color(120, 120, 120));
+			break;
+		case 1:
+			g.setColor(new Color(50, 50, 50));
+			break;
+		default:
+			g.setColor(Color.RED);
+			break;
+		}
+		// g.setColor(new Color(100, 200, 50));
 		g.fillRect(x, y, size, size);
 	}
+
+	public void setType(int type) {
+		this.type = type;
+	}
+
 }

@@ -13,6 +13,8 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.File;
+
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -45,7 +47,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.f.addMouseListener(this);
 		this.f.addKeyListener(this);
 		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.t = new Timer(8, this);
+		this.t = new Timer(16, this);
 		init();
 		this.t.start();
 		this.f.setVisible(true);
@@ -72,13 +74,13 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.height = f.getHeight();
 		this.m = new Mouse();
 		this.ctrlKeyPressed = false;
-		this.arena = new Arena();
-		this.tank = new PlayerTank(10, 10, 0, 10, arena.getWidth(), arena.getHeight());
+		this.arena = new Arena(width, height, new File("./maps/test.txt"));
+		this.tank = new PlayerTank(50, 50, 5, 5, arena.getWidth(), arena.getHeight());
 	}
 
 	public void paintBackground(Graphics g) {
 		g.setColor(Color.lightGray);
-		g.fillRect(0, 0, 950 * mult, 500 * mult);
+		g.fillRect(0, 0, width, height);
 	}
 
 	@Override

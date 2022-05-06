@@ -19,7 +19,7 @@ public class Tank {
 		y = pY;
 		vX = 0;
 		vY = 0;
-		speed = 3;
+		speed = 6;
 		color = new Color(0, 0, 0);
 	}
 
@@ -29,7 +29,7 @@ public class Tank {
 		y = pY;
 		vX = 0;
 		vY = 0;
-		speed = 3;
+		speed = 6;
 		minX = minXVal;
 		minY = minYVal;
 		maxX = maxXVal;
@@ -38,9 +38,7 @@ public class Tank {
 	}
 
 	public Tank(int pX, int pY, int m) {
-
 		image = img.img("yellow.png");
-
 		mult = m;
 		// TODO: Instead of inputting the x and y coords, input the tile row and col
 		x = pX;
@@ -52,8 +50,18 @@ public class Tank {
 	}
 
 	public void paint(Graphics g) {
-		x += vX;
-		y += vY;
+		if (x < maxX && vX > 0)
+			x += vX;
+
+		if (x > minX && vX < 0)
+			x += vX;
+
+		if (y < maxY && vY > 0)
+			y += vY;
+
+		if (y > minY && vY < 0)
+			y += vY;
+
 		g.setColor(color);
 		g.fillRect(x, y, 36 * mult, 36 * mult);
 		g.drawImage(image, x * mult, y * mult, null);
@@ -61,6 +69,7 @@ public class Tank {
 
 	public void moveEast() {
 		vX = speed;
+
 	}
 
 	public void moveWest() {
@@ -69,6 +78,7 @@ public class Tank {
 
 	public void moveNorth() {
 		vY = -speed;
+
 	}
 
 	public void moveSouth() {
