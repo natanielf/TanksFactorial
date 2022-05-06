@@ -30,6 +30,7 @@ public class Tank {
 		vX = 0;
 		vY = 0;
 		speed = 3;
+		// TODO: delete minX, minY, maxX, and maxY
 		minX = minXVal;
 		minY = minYVal;
 		maxX = maxXVal;
@@ -38,9 +39,7 @@ public class Tank {
 	}
 
 	public Tank(int pX, int pY, int m) {
-
 		image = img.img("yellow.png");
-
 		mult = m;
 		// TODO: Instead of inputting the x and y coords, input the tile row and col
 		x = pX;
