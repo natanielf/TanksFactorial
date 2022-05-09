@@ -1,12 +1,8 @@
 import java.awt.Graphics;
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Font;
-import java.awt.GridLayout;
-import java.awt.Image;
-import java.awt.MouseInfo;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,11 +15,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import java.net.URL;
 
 public class Frame extends JPanel implements ActionListener, MouseListener, KeyListener {
 
-	private Image i;
 	private Img img;
 
 	private JFrame f;
@@ -33,11 +27,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private int width, height;
 	private boolean ctrlKeyPressed;
 	private PlayerTank tank;
-	private int mult;
 
-	public Frame(int m) {
-		mult = m;
+	private JPanel startScreen;
+	private JButton b1, b2;
+	private ActionListener action;
+	private boolean singlePlayer, inProgress;
+	private int level;
 
+	public Frame() {
 		this.f = new JFrame("Tanks!");
 		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		this.f.setMinimumSize(new Dimension(1024, 576));
@@ -49,6 +46,7 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.t = new Timer(16, this);
 		init();
+		createStartScreen();
 		this.t.start();
 		this.f.setVisible(true);
 	}
@@ -56,26 +54,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	public void paint(Graphics g) {
 		paintBackground(g);
 		arena.paint(g);
-		g.drawImage(i, 10, 10, null);
 		tank.paint(g);
 		m.paintAimLine(g, tank.getX(), tank.getY());
-		// small x max: 1366
-		// small y max: 705
-		// large x max: 1920
-		// large y max: 1017
 	}
 
 	public static void main(String[] args) {
-		new Frame(2);
+		new Frame();
 	}
 
 	public void init() {
 		this.width = f.getWidth();
 		this.height = f.getHeight();
 		this.m = new Mouse();
-		this.ctrlKeyPressed = false;
-		this.arena = new Arena(width, height, new File("./maps/test.txt"));
-		this.tank = new PlayerTank(50, 50, 5, 5, arena.getWidth(), arena.getHeight());
 	}
 
 	public void paintBackground(Graphics g) {
@@ -132,7 +122,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
-		tank.shoot();
+		if (tank != null)
+			tank.shoot();
 	}
 
 	@Override
@@ -162,4 +153,52 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		m.update();
 		repaint();
 	}
+
+	public void setGameType(ActionEvent e) {
+		this.singlePlayer = e.getActionCommand().equals("Single-Player");
+		f.remove(startScreen);
+		f.revalidate();
+		f.repaint();
+		startGame();
+	}
+
+	public void startGame() {
+		this.level = 1;
+		this.inProgress = true;
+		this.ctrlKeyPressed = false;
+		this.arena = new Arena(width, height, new File("./maps/test.txt"));
+		this.tank = new PlayerTank(50, 50, 5, 5, arena.getWidth(), arena.getHeight());
+		f.revalidate();
+		f.repaint();
+	}
+
+	public void createStartScreen() {
+		this.startScreen = new JPanel();
+		startScreen.setBounds(10, 10, 20, 20);
+		startScreen.setSize(500, 500);
+		startScreen.setPreferredSize(new Dimension(500, 800));
+		startScreen.setBackground(Color.black);
+
+		this.b1 = new JButton("Single-Player");
+		b1.setPreferredSize(new Dimension(200, 40));
+		startScreen.add(b1);
+		this.b2 = new JButton("Multiplayer");
+		b2.setPreferredSize(new Dimension(200, 40));
+		startScreen.add(b2);
+
+		this.action = new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				setGameType(e);
+			}
+		};
+
+		b1.addActionListener(action);
+		b2.addActionListener(action);
+
+		f.add(startScreen, BorderLayout.CENTER);
+		f.revalidate();
+		f.repaint();
+	}
+
 }
