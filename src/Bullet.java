@@ -17,6 +17,18 @@ public class Bullet {
 		color = new Color(25, 90, 150);
 		this.mouse = mouse;
 	}
+	
+	public Bullet(int x, int y, Mouse mouse) {
+		// TODO: Fix the vX and vY
+		this.x = x;
+		this.y = y;
+		this.vX = 0;
+		this.vY = 0;
+		size = 10;
+		speed = 3;
+		color = new Color(25, 90, 150);
+		this.mouse = mouse;
+	}
 
 	public void paint(Graphics g) {
 		g.setColor(color);

@@ -10,6 +10,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -34,7 +35,9 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private ActionListener startBtnAction;
 	private boolean singlePlayer, inProgress;
 	private int level;
-
+	
+	private ArrayList<Bullet> bullets;
+	
 	public Frame() {
 		this.f = new JFrame("Tanks!");
 		this.f.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -50,6 +53,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		createStartScreen();
 		this.t.start();
 		this.f.setVisible(true);
+		// TODO: Make an ArrayList of bullets that can be printed in the Frame
+		bullets = new ArrayList<Bullet>();
 	}
 
 	public void paint(Graphics g) {
@@ -129,6 +134,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		if (tank != null)
+			// TODO: mouseClicked is supposed to add a bullet to the bullets ArrayList
+			bullets.add(new Bullet(tank.getX(), tank.getY(), new Mouse()));
 			tank.shoot();
 	}
 
