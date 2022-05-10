@@ -27,10 +27,11 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 	private int width, height;
 	private boolean ctrlKeyPressed;
 	private PlayerTank tank;
+	private HUD hud;
 
 	private JPanel startScreen;
 	private JButton b1, b2;
-	private ActionListener action;
+	private ActionListener startBtnAction;
 	private boolean singlePlayer, inProgress;
 	private int level;
 
@@ -53,9 +54,14 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 
 	public void paint(Graphics g) {
 		paintBackground(g);
-		arena.paint(g);
-		tank.paint(g);
-		m.paintAimLine(g, tank.getX(), tank.getY());
+		if (arena != null)
+			arena.paint(g);
+		if (tank != null) {
+			tank.paint(g);
+			m.paintAimLine(g, tank.getX(), tank.getY());
+		}
+		if (hud != null)
+			hud.paint(g);
 	}
 
 	public static void main(String[] args) {
@@ -151,7 +157,8 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.width = f.getWidth();
 		this.height = f.getHeight();
 		m.update();
-		repaint();
+		f.repaint();
+		f.revalidate();
 	}
 
 	public void setGameType(ActionEvent e) {
@@ -168,16 +175,18 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		this.ctrlKeyPressed = false;
 		this.arena = new Arena(width, height, new File("./maps/test.txt"));
 		this.tank = new PlayerTank(50, 50, 5, 5, arena.getWidth(), arena.getHeight());
+		this.hud = new HUD(500, 500, width, height);
 		f.revalidate();
 		f.repaint();
 	}
 
 	public void createStartScreen() {
 		this.startScreen = new JPanel();
-		startScreen.setBounds(10, 10, 20, 20);
-		startScreen.setSize(500, 500);
+		startScreen.setBounds(10, 10, 200, 200);
+		startScreen.setSize(new Dimension(500, 800));
+
 		startScreen.setPreferredSize(new Dimension(500, 800));
-		startScreen.setBackground(Color.black);
+		startScreen.setBackground(Color.darkGray);
 
 		this.b1 = new JButton("Single-Player");
 		b1.setPreferredSize(new Dimension(200, 40));
@@ -186,15 +195,15 @@ public class Frame extends JPanel implements ActionListener, MouseListener, KeyL
 		b2.setPreferredSize(new Dimension(200, 40));
 		startScreen.add(b2);
 
-		this.action = new ActionListener() {
+		this.startBtnAction = new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setGameType(e);
 			}
 		};
 
-		b1.addActionListener(action);
-		b2.addActionListener(action);
+		b1.addActionListener(startBtnAction);
+		b2.addActionListener(startBtnAction);
 
 		f.add(startScreen, BorderLayout.CENTER);
 		f.revalidate();
