@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class PlayerTank extends Tank {
 	public PlayerTank(int x, int y) {
