@@ -19,8 +19,4 @@ public class PlayerTank extends Tank {
 	public void shoot() {
 		System.out.println("Pew!");
 	}
-	
-	public void paint(Graphics g) {
-		
-	}
 }
