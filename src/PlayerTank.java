@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Graphics;
 
 public class PlayerTank extends Tank {
 	public PlayerTank(int x, int y) {
@@ -17,5 +18,9 @@ public class PlayerTank extends Tank {
 
 	public void shoot() {
 		System.out.println("Pew!");
+	}
+	
+	public void paint(Graphics g) {
+		
 	}
 }
