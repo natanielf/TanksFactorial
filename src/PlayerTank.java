@@ -17,6 +17,16 @@ public class PlayerTank extends Tank {
 	}
 
 	public void shoot() {
+		
+		// TODO: call the paint method
+		
 		System.out.println("Pew!");
+		// Graphics g = new Graphics();
+		// paint(g);
+	}
+	
+	public void paint(Graphics g) {
+		
+		// paint it to the frame
 	}
 }

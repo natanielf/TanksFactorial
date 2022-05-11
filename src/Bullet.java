@@ -7,6 +7,7 @@ public class Bullet {
 	private Color color;
 	private Mouse mouse;
 
+	// Ignore this for now
 	public Bullet(int x, int y, double vX, double vY, Mouse mouse) {
 		this.x = x;
 		this.y = y;
@@ -19,7 +20,6 @@ public class Bullet {
 	}
 	
 	public Bullet(int x, int y, Mouse mouse) {
-		// TODO: Fix the vX and vY
 		this.x = x;
 		this.y = y;
 		this.vX = 0;
@@ -51,11 +51,11 @@ public class Bullet {
 		}
 	}
 	
-	public void setVelocityX() {
-		vX = speed * Math.cos(mouse.getAngleInRadians());
+	public void setVelocityX(double angle) {
+		vX = speed * Math.cos(angle);
 	}
 	
-	public void setVelocityY() {
-		vY = speed * Math.sin(mouse.getAngleInRadians());
+	public void setVelocityY(double angle) {
+		vY = speed * Math.sin(angle);
 	}
 }
