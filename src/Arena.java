@@ -6,7 +6,6 @@ import java.util.Scanner;
 
 public class Arena {
 	// mult(iplier) can be used to increase the size of the game screen
-	private int mult;
 	protected Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
 
@@ -16,7 +15,6 @@ public class Arena {
 		createArena();
 		this.tileSize = 30;
 		this.tileSpacer = 1;
-		mult = 1;
 	}
 
 	public Arena(File f) {
@@ -24,7 +22,6 @@ public class Arena {
 		this.cols = 32;
 		this.tileSize = 30;
 		this.tileSpacer = 1;
-		this.mult = 1;
 		createArena();
 		textFileInput(f);
 	}
@@ -37,21 +34,11 @@ public class Arena {
 		this.height = fH;
 		this.tileSpacer = 1;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
-		mult = 1;
 	}
 
 	public Arena(int fW, int fH, File f) {
 		this(fW, fH);
 		textFileInput(f);
-	}
-
-	public Arena(int m) {
-		this.rows = 18;
-		this.cols = 32;
-		createArena();
-		this.tileSpacer = 3;
-		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
-		mult = m;
 	}
 
 	public void paint(Graphics g) {
