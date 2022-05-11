@@ -17,9 +17,8 @@ public class Bullet {
 		color = new Color(25, 90, 150);
 		this.mouse = mouse;
 	}
-	
+
 	public Bullet(int x, int y, Mouse mouse) {
-		// TODO: Fix the vX and vY
 		this.x = x;
 		this.y = y;
 		this.vX = 0;
@@ -39,7 +38,7 @@ public class Bullet {
 
 	public void bounce(int d) {
 		switch (d) {
-		
+
 		case 0:
 			vY = 0 - vY;
 		case 1:
@@ -50,11 +49,11 @@ public class Bullet {
 			vX = Math.abs(vX);
 		}
 	}
-	
+
 	public void setVelocityX() {
 		vX = speed * Math.cos(mouse.getAngleInRadians());
 	}
-	
+
 	public void setVelocityY() {
 		vY = speed * Math.sin(mouse.getAngleInRadians());
 	}

@@ -1,15 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 
-public class PlayerTank extends Tank {
-	public PlayerTank(int x, int y) {
-		super(x, y);
-		super.color = Color.BLUE;
-	}
+import processing.core.PApplet;
 
-	public PlayerTank(int pX, int pY, int minXVal, int minYVal, int maxXVal, int maxYVal) {
-		super(pX, pY, minXVal, minYVal, maxXVal, maxYVal);
-		super.color = Color.BLUE;
+public class PlayerTank extends Tank {
+
+	public PlayerTank(PApplet app, int x, int y, int size) {
+		super(app, x, y, size);
+		color = Color.BLUE;
 	}
 
 	public void placeMine() {
@@ -19,4 +17,19 @@ public class PlayerTank extends Tank {
 	public void shoot() {
 		System.out.println("Pew!");
 	}
+
+	public void shoot(int mX, int mY) {
+		System.out.println("Bullet fired! Mouse location: " + mX + " " + mY);
+	}
+
+	public void paint() {
+		super.app.strokeWeight(0);
+		super.app.rect(x, y, size, size);
+	}
+	
+	public void update() {
+		x += vX;
+		y += vY;
+	}
+
 }

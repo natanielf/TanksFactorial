@@ -17,11 +17,11 @@ public class Tile {
 	public void paint() {
 		switch (type) {
 			case -1:
-				app.stroke(200, 0, 0);
+				app.fill(200, 0, 0);
 			case 0:
-				app.stroke(200, 200, 200);
+				app.fill(100, 100, 100);
 			case 1:
-				app.stroke(100, 100, 100);
+				app.fill(50, 50, 50);
 		}
 		app.rect(x, y, size, size);
 	}

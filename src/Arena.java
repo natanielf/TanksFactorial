@@ -7,8 +7,8 @@ import processing.core.PApplet;
 public class Arena {
 
 	private PApplet app;
-	protected Tile[][] grid;
-	protected int width, height, rows, cols, tileSize, tileSpacer;
+	private Tile[][] grid;
+	private int width, height, rows, cols, tileSize, tileSpacer;
 
 	public Arena(PApplet app, int fW, int fH) {
 		this.app = app;
@@ -54,15 +54,15 @@ public class Arena {
 						char c = lineArray[i];
 						int type = 0;
 						switch (c) {
-							case '_':
-								type = 0;
-								break;
-							case 'X':
-								type = 1;
-								break;
-							default:
-								type = -1;
-								break;
+						case '_':
+							type = 0;
+							break;
+						case 'X':
+							type = 1;
+							break;
+						default:
+							type = -1;
+							break;
 						}
 						grid[r][i].setType(type);
 					}

@@ -8,7 +8,7 @@ public class Game extends PApplet {
 
 	private Arena arena;
 	private PlayerTank player;
-	// private PSurface surface;
+	private Tank opponent;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
@@ -18,6 +18,7 @@ public class Game extends PApplet {
 
 	public Game() {
 		this.arena = new Arena(this, displayWidth, displayHeight, new File("./maps/test.txt"));
+		this.player = new PlayerTank(this, 25, 25, 40);
 		createSurface();
 	}
 
@@ -30,18 +31,61 @@ public class Game extends PApplet {
 	public void setup() {
 		surface.setTitle("Tanks!");
 		surface.setResizable(true);
+		cursor(CROSS);
 		rectMode(CENTER);
-		noStroke();
-		fill(10, 10, 20, 20);
 	}
 
 	public void draw() {
-		cursor(CROSS);
 		background(200);
-		rect(50, 50, 40, 40);
-		stroke(0, 0, 0);
-		line(60, 60, mouseX, mouseY);
 		arena.paint();
+		paintAimLine();
+		player.update();
+		player.paint();
+	}
+
+	public void paintAimLine() {
+		stroke(0);
+		strokeWeight(2);
+		strokeCap(ROUND);
+		line(player.getX(), player.getY(), mouseX, mouseY);
+	}
+
+	@Override
+	public void keyPressed() {
+		if (key != CODED) {
+			switch (Character.toUpperCase(key)) {
+			case 'W':
+				player.moveNorth();
+				break;
+			case 'A':
+				player.moveWest();
+				break;
+			case 'S':
+				player.moveSouth();
+				break;
+			case 'D':
+				player.moveEast();
+				break;
+			}
+		}
+	}
+
+	@Override
+	public void keyReleased() {
+		switch (Character.toUpperCase(key)) {
+		case 'W':
+			player.stopY();
+			break;
+		case 'A':
+			player.stopX();
+			break;
+		case 'S':
+			player.stopY();
+			break;
+		case 'D':
+			player.stopX();
+			break;
+		}
 	}
 
 	private void createSurface() {
