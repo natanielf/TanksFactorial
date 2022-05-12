@@ -16,7 +16,7 @@ public class Tile {
 	public void paint() {
 		switch (type) {
 			case 0:
-				app.fill(100, 100, 100);
+				app.fill(150, 150, 150);
 				break;
 			case 1:
 				app.fill(50, 50, 50);

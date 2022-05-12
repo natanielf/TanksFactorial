@@ -17,8 +17,8 @@ public class Arena {
 		this.cols = 32;
 		this.width = fW;
 		this.height = fH;
-		this.tileSpacer = 1;
-		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
+		this.tileSpacer = 0;
+		this.tileSize = Math.min(width / cols, height / rows);
 		createArena();
 	}
 

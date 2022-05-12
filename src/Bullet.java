@@ -3,15 +3,16 @@ import processing.core.PApplet;
 public class Bullet {
 
 	private PApplet app;
-	private int x, y, size, vX, vY;
-	static final int MAXSPEED = 20, MINSPEED = 5;
+	private int x, y, size, vX, vY, minVX, minVY;
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
 		this.x = tankX;
 		this.y = tankY;
-		this.vX = Math.min((mouseX - tankX) / 20, MAXSPEED);
-		this.vY = Math.min((mouseY - tankY) / 20, MAXSPEED);
+		this.vX = (mouseX - tankX) / 40;
+		this.vY = (mouseY - tankY) / 40;
+		this.minVX = vX / 10;
+		this.minVY = vY / 10;
 		this.size = 8;
 	}
 
@@ -29,11 +30,11 @@ public class Bullet {
 	}
 
 	public void paint() {
-		if (app.frameCount % 5 == 0) {
-			if (vX > MINSPEED)
-				vX--;
-			if (vY > MINSPEED)
-				vY--;
+		if (app.frameCount % 4 == 0) {
+			if (vX > minVX)
+				vX -= vX / 50;
+			if (vY > minVY)
+				vY -= vY / 50;
 		}
 		x += vX;
 		y += vY;
