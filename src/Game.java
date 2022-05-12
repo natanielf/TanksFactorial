@@ -1,12 +1,14 @@
 import java.io.File;
 
 import processing.core.PApplet;
+import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PSurface;
 
 public class Game extends PApplet {
 
 	private Arena arena;
+	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
@@ -19,6 +21,7 @@ public class Game extends PApplet {
 
 	public Game() {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
+		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new PlayerTank(this, 25, 25, 40);
 		createSurface();
 	}
@@ -35,6 +38,9 @@ public class Game extends PApplet {
 		cursor(CROSS);
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
+		PFont font = createFont("Arial", 48);
+		textFont(font);
+		textAlign(CENTER, CENTER);
 	}
 
 	public void draw() {
@@ -43,6 +49,7 @@ public class Game extends PApplet {
 		paintAimLine();
 		player.update();
 		player.paint();
+		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
 	}
@@ -58,18 +65,18 @@ public class Game extends PApplet {
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-				case 'W':
-					player.moveNorth();
-					break;
-				case 'A':
-					player.moveWest();
-					break;
-				case 'S':
-					player.moveSouth();
-					break;
-				case 'D':
-					player.moveEast();
-					break;
+			case 'W':
+				player.moveNorth();
+				break;
+			case 'A':
+				player.moveWest();
+				break;
+			case 'S':
+				player.moveSouth();
+				break;
+			case 'D':
+				player.moveEast();
+				break;
 			}
 		}
 	}
@@ -84,18 +91,18 @@ public class Game extends PApplet {
 	@Override
 	public void keyReleased() {
 		switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.stopY();
-				break;
-			case 'A':
-				player.stopX();
-				break;
-			case 'S':
-				player.stopY();
-				break;
-			case 'D':
-				player.stopX();
-				break;
+		case 'W':
+			player.stopY();
+			break;
+		case 'A':
+			player.stopX();
+			break;
+		case 'S':
+			player.stopY();
+			break;
+		case 'D':
+			player.stopX();
+			break;
 		}
 	}
 

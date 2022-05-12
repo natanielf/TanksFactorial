@@ -24,6 +24,7 @@ public class Tile {
 			default:
 				app.fill(200, 0, 0);
 		}
+		app.noStroke();
 		app.rect(x, y, size, size);
 	}
 

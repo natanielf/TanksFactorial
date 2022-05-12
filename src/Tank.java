@@ -57,6 +57,10 @@ public class Tank {
 	public int getY() {
 		return y;
 	}
+	
+	public int getAmmo() {
+		return ammo;
+	}
 
 	public void update() {
 		x += vX;
