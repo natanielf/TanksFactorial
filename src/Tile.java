@@ -3,7 +3,6 @@ import processing.core.PApplet;
 public class Tile {
 
 	private PApplet app;
-
 	private int x, y, size, type;
 
 	public Tile(PApplet app, int x, int y, int size, int type) {
@@ -16,12 +15,14 @@ public class Tile {
 
 	public void paint() {
 		switch (type) {
-			case -1:
-				app.fill(200, 0, 0);
 			case 0:
 				app.fill(100, 100, 100);
+				break;
 			case 1:
 				app.fill(50, 50, 50);
+				break;
+			default:
+				app.fill(200, 0, 0);
 		}
 		app.rect(x, y, size, size);
 	}

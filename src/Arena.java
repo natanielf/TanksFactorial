@@ -9,6 +9,7 @@ public class Arena {
 	private PApplet app;
 	private Tile[][] grid;
 	private int width, height, rows, cols, tileSize, tileSpacer;
+	private static final int MARGIN = 30;
 
 	public Arena(PApplet app, int fW, int fH) {
 		this.app = app;
@@ -17,7 +18,7 @@ public class Arena {
 		this.width = fW;
 		this.height = fH;
 		this.tileSpacer = 1;
-		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
 		createArena();
 	}
 
@@ -38,7 +39,8 @@ public class Arena {
 		this.grid = new Tile[rows][cols];
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				grid[r][c] = new Tile(app, c * (tileSize + tileSpacer), r * (tileSize + tileSpacer), tileSize, 0);
+				grid[r][c] = new Tile(app, c * (tileSize + tileSpacer) + MARGIN, r * (tileSize + tileSpacer) + MARGIN,
+						tileSize, 0);
 			}
 		}
 	}
@@ -54,15 +56,15 @@ public class Arena {
 						char c = lineArray[i];
 						int type = 0;
 						switch (c) {
-						case '_':
-							type = 0;
-							break;
-						case 'X':
-							type = 1;
-							break;
-						default:
-							type = -1;
-							break;
+							case '_':
+								type = 0;
+								break;
+							case 'X':
+								type = 1;
+								break;
+							default:
+								type = -1;
+								break;
 						}
 						grid[r][i].setType(type);
 					}
