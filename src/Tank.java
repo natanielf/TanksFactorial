@@ -1,4 +1,3 @@
-import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -8,7 +7,6 @@ public class Tank {
 	protected PApplet app;
 	protected int x, y, ammo, maxAmmo, vX, vY, speed, size;
 	protected ArrayList<Bullet> bullets;
-	protected Color color;
 
 	public Tank(PApplet a, int pX, int pY, int s) {
 		app = a;
@@ -20,7 +18,6 @@ public class Tank {
 		vY = 0;
 		speed = 6;
 		size = s;
-		color = new Color(0, 0, 0);
 		bullets = new ArrayList<>();
 	}
 
@@ -57,7 +54,7 @@ public class Tank {
 	public int getY() {
 		return y;
 	}
-	
+
 	public int getAmmo() {
 		return ammo;
 	}
@@ -77,7 +74,12 @@ public class Tank {
 	public void paint() {
 		app.strokeWeight(0);
 		app.fill(20, 115, 250);
-		app.rect(x, y, size, size);
+		app.ellipse(x, y, size, size);
+		for (int i = 0; i < bullets.size(); i++) {
+			Bullet b = bullets.get(i);
+			if (b.getStartFrame() < app.frameCount - (app.frameRate * 8))
+				bullets.remove(i);
+		}
 		for (Bullet b : bullets) {
 			b.paint();
 		}
