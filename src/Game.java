@@ -22,7 +22,7 @@ public class Game extends PApplet {
 	public Game() {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 25, 25, 40);
+		this.player = new PlayerTank(this, 100, 100, 40);
 		createSurface();
 	}
 
@@ -47,7 +47,6 @@ public class Game extends PApplet {
 		background(200);
 		arena.paint();
 		paintAimLine();
-		player.update();
 		player.paint();
 		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)

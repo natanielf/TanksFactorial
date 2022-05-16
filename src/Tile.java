@@ -1,14 +1,15 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Tile {
 
 	private PApplet app;
-	private int x, y, size, type;
+	private PVector location;
+	private int size, type;
 
 	public Tile(PApplet app, int x, int y, int size, int type) {
 		this.app = app;
-		this.x = x;
-		this.y = y;
+		this.location = new PVector(x, y);
 		this.size = size;
 		this.type = type;
 	}
@@ -25,7 +26,7 @@ public class Tile {
 				app.fill(200, 0, 0);
 		}
 		app.noStroke();
-		app.rect(x, y, size, size);
+		app.rect(location.x, location.y, size, size);
 	}
 
 	public void setType(int type) {
