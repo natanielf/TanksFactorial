@@ -11,17 +11,17 @@ public class Bullet {
 		this.app = app;
 		this.location = new PVector(tankX, tankY);
 		this.size = 8;
-		this.velocity = new PVector((mouseX - tankX) / 40, (mouseY - tankY) / 40);
+		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
 		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
 		this.startFrame = app.frameCount;
 	}
 
 	public void paint() {
-		if (app.frameCount % 4 == 0) {
+		if (app.frameCount % 10 == 0) {
 			if (velocity.x > minVelocity.x)
-				velocity.x -= velocity.x / 50;
+				velocity.x -= velocity.x / 100;
 			if (velocity.y > minVelocity.y)
-				velocity.y -= velocity.y / 50;
+				velocity.y -= velocity.y / 100;
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
