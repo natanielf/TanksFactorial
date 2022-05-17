@@ -1,12 +1,9 @@
 import java.io.File;
-import java.io.IOException;
 import javax.sound.sampled.AudioFormat;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.DataLine;
-import javax.sound.sampled.LineEvent;
-import javax.sound.sampled.LineListener;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class Music implements Runnable {
@@ -38,10 +35,8 @@ public class Music implements Runnable {
 			audioClip.open(audioStream);
 			audioClip.start();
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -53,7 +48,7 @@ public class Music implements Runnable {
 		loops = false;
 		audioClip.stop();
 		try {
-			t.sleep(100);
+			Thread.sleep(100);
 			audioClip.stop();
 		} catch (Exception e) {
 
@@ -100,10 +95,8 @@ public class Music implements Runnable {
 			audioClip.open(audioStream);
 			audioClip.start();
 		} catch (UnsupportedAudioFileException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
