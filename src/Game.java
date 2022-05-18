@@ -64,18 +64,18 @@ public class Game extends PApplet {
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.moveNorth();
-				break;
-			case 'A':
-				player.moveWest();
-				break;
-			case 'S':
-				player.moveSouth();
-				break;
-			case 'D':
-				player.moveEast();
-				break;
+				case 'W':
+					player.moveNorth();
+					break;
+				case 'A':
+					player.moveWest();
+					break;
+				case 'S':
+					player.moveSouth();
+					break;
+				case 'D':
+					player.moveEast();
+					break;
 			}
 		}
 	}
@@ -89,19 +89,21 @@ public class Game extends PApplet {
 
 	@Override
 	public void keyReleased() {
-		switch (Character.toUpperCase(key)) {
-		case 'W':
-			player.stopY();
-			break;
-		case 'A':
-			player.stopX();
-			break;
-		case 'S':
-			player.stopY();
-			break;
-		case 'D':
-			player.stopX();
-			break;
+		if (key != CODED) {
+			switch (Character.toUpperCase(key)) {
+				case 'W':
+					player.stopY();
+					break;
+				case 'A':
+					player.stopX();
+					break;
+				case 'S':
+					player.stopY();
+					break;
+				case 'D':
+					player.stopX();
+					break;
+			}
 		}
 	}
 
