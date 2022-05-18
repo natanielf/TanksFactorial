@@ -38,13 +38,13 @@ public class Game extends PApplet {
 		cursor(CROSS);
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
-		PFont font = createFont("Arial", 48);
+		PFont font = createFont("DejaVu Sans", 48);
 		textFont(font);
 		textAlign(CENTER, CENTER);
 	}
 
 	public void draw() {
-		background(200);
+		background(150);
 		arena.paint();
 		paintAimLine();
 		player.paint();

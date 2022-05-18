@@ -17,13 +17,14 @@ public class Tile {
 	public void paint() {
 		switch (type) {
 			case 0:
-				app.fill(150, 150, 150);
+				app.fill(200);
 				break;
 			case 1:
-				app.fill(50, 50, 50);
+				app.fill(50);
 				break;
 			default:
 				app.fill(200, 0, 0);
+				break;
 		}
 		app.noStroke();
 		app.rect(location.x, location.y, size, size);

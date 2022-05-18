@@ -60,8 +60,13 @@ public class Tank {
 	}
 
 	public void update() {
-		location.x += velocity.x;
-		location.y += velocity.y;
+		if (velocity.x != 0 && velocity.y != 0) {
+			location.x += velocity.x * 0.75;
+			location.y += velocity.y * 0.75;
+		} else {
+			location.x += velocity.x;
+			location.y += velocity.y;
+		}
 	}
 
 	public void shoot(int mX, int mY) {
