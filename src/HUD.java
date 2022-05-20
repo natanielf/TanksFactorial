@@ -1,32 +1,23 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Graphics;
+import processing.core.PApplet;
 
 public class HUD {
 
+	private PApplet app;
 	private int x, y, w, h;
-	private int ammo;
-	private double health;
-	private Color bkgdColor, fontColor;
-	private Font small, medium, large;
 
-	public HUD(int x, int y, int frameW, int frameH) {
+	public HUD(PApplet app, int x, int y, int frameWidth, int frameHeight) {
+		this.app = app;
 		this.x = x;
 		this.y = y;
-		this.w = frameW / 3;
-		this.h = frameH / 5;
-		this.ammo = 0;
-		this.health = 0;
-		this.bkgdColor = new Color(210, 180, 140);
-		this.fontColor = Color.white;
-		this.small = new Font(Font.SANS_SERIF, Font.PLAIN, 20);
-		this.medium = new Font(Font.SANS_SERIF, Font.BOLD, 35);
-		this.large = new Font(Font.SANS_SERIF, Font.BOLD, 50);
+		this.w = frameWidth / 3;
+		this.h = frameHeight / 5;
 	}
 
-	public void paint(Graphics g) {
-		g.setColor(bkgdColor);
-		g.fillRect(x, y, w, h);
+	public void paint(int ammo) {
+		app.fill(0, 0, 0);
+		app.rect(x, y, w, h);
+		app.fill(255, 255, 255);
+		app.text("AMMO: " + ammo, x, y);
 	}
 
 }

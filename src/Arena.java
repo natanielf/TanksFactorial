@@ -1,17 +1,21 @@
-import java.awt.Graphics;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.Arrays;
 import java.util.Scanner;
+
+import processing.core.PApplet;
 
 public class Arena {
 	// mult(iplier) can be used to increase the size of the game screen
 	protected Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
+	private PApplet app;
+	private static final int MARGIN = 30;
 
-	public Arena() {
+	public Arena(PApplet app, int fW, int fH) {
+		this.app = app;
 		this.rows = 18;
 		this.cols = 32;
+
 		createArena();
 		this.tileSize = 30;
 		this.tileSpacer = 1;
@@ -34,17 +38,19 @@ public class Arena {
 		this.height = fH;
 		this.tileSpacer = 1;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
+		createArena();
 	}
 
-	public Arena(int fW, int fH, File f) {
-		this(fW, fH);
+	public Arena(PApplet app, int fW, int fH, File f) {
+		this(app, fW, fH);
 		textFileInput(f);
 	}
 
-	public void paint(Graphics g) {
+	public void paint() {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				grid[r][c].paint(g, c * tileSize + (tileSpacer * c), r * tileSize + (tileSpacer * r), tileSize);
+				grid[r][c].paint();
 			}
 		}
 	}
@@ -53,41 +59,37 @@ public class Arena {
 		this.grid = new Tile[rows][cols];
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				grid[r][c] = new Tile();
+				grid[r][c] = new Tile(app, c * (tileSize + tileSpacer) + MARGIN, r * (tileSize + tileSpacer) + MARGIN,
+						tileSize, 0);
 			}
 		}
 	}
 
-	public void updateSize(int fW, int fH) {
-		this.width = fW;
-		this.height = fH;
-		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
-	}
-
 	public void textFileInput(File f) {
 		try {
-			Scanner s = new Scanner(f);
-			int r = 0;
-			while (s.hasNextLine() && r < grid.length) {
-				String line = s.nextLine();
-				char[] lineArray = line.toCharArray();
-				for (int i = 0; i < lineArray.length; i++) {
-					char c = lineArray[i];
-					int type = 0;
-					switch (c) {
-					case '_':
-						type = 0;
-						break;
-					case 'X':
-						type = 1;
-						break;
-					default:
-						type = -1;
-						break;
+			try (Scanner s = new Scanner(f)) {
+				int r = 0;
+				while (s.hasNextLine() && r < grid.length) {
+					String line = s.nextLine();
+					char[] lineArray = line.toCharArray();
+					for (int i = 0; i < lineArray.length; i++) {
+						char c = lineArray[i];
+						int type = 0;
+						switch (c) {
+							case '_':
+								type = 0;
+								break;
+							case 'X':
+								type = 1;
+								break;
+							default:
+								type = -1;
+								break;
+						}
+						grid[r][i].setType(type);
 					}
-					grid[r][i].setType(type);
+					r++;
 				}
-				r++;
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

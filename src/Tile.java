@@ -1,56 +1,31 @@
-import java.awt.Color;
-import java.awt.Graphics;
+import processing.core.PApplet;
 
 public class Tile {
 
-	/*
-	 * tile0 = Ground tile tile1 = Hole tile tile2 = Wall tile tile3 = Fragile wall
-	 * tile tile4 = Broken tile tile5 = Slow ground tile tile6 = Fast ground tile
-	 * tile7 = Powerup tile tile8 = Ice tile(???)
-	 */
+	private PApplet app;
+	private int x, y, size, type;
 
-	private int type;
-	protected boolean floor, clear, frail;
-	protected double speed;
-	private String txtr;
-
-	public Tile() {
-		type = 0;
-		clear = true;
-		speed = 1;
-		txtr = "tile0";
+	public Tile(PApplet app, int x, int y, int size, int type) {
+		this.app = app;
+		this.x = x;
+		this.y = y;
+		this.size = size;
+		this.type = type;
 	}
 
-	public Tile(double s) {
-		clear = true;
-		speed = s;
-		txtr = "tile1";
-	}
-
-	public void frag() {
-		if (frail) {
-			floor = true;
-			clear = true;
-			frail = false;
-			speed = 0.9;
-			txtr = "tile5";
+	public void paint() {
+		switch (type) {
+			case 0:
+				app.fill(100, 100, 100);
+				break;
+			case 1:
+				app.fill(50, 50, 50);
+				break;
+			default:
+				app.fill(200, 0, 0);
 		}
-	}
-
-	public void paint(Graphics g, int x, int y, int size) {
-		switch (this.type) {
-		case 0:
-			g.setColor(new Color(120, 120, 120));
-			break;
-		case 1:
-			g.setColor(new Color(50, 50, 50));
-			break;
-		default:
-			g.setColor(Color.RED);
-			break;
-		}
-		// g.setColor(new Color(100, 200, 50));
-		g.fillRect(x, y, size, size);
+		app.noStroke();
+		app.rect(x, y, size, size);
 	}
 
 	public void setType(int type) {
