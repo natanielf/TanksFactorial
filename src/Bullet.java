@@ -4,16 +4,19 @@ import processing.core.PVector;
 public class Bullet {
 
 	private PApplet app;
-	private int size, startFrame;
 	private PVector location, velocity, minVelocity;
-
+	private int size, startFrame, rCount, rLimit;
+	private Arena arena;
+	
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
 		this.location = new PVector(tankX, tankY);
-		this.size = 8;
 		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
 		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
+		this.size = 8;
 		this.startFrame = app.frameCount;
+		this.rCount = 0;
+		this.rLimit = 2;
 	}
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
@@ -33,12 +36,36 @@ public class Bullet {
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
-		if (location.x == 0 || location.x == 1280)
-			velocity.x *= -1;
-		if (location.y == 0 || location.y == 720)
-			velocity.y *= -1;
+		
+		// TODO: Fix the if statement logic
+		// pass in the arena, traverse the arena, check for black tiles, if black, then bounce!
+		
+		if (location.x == 0 || location.x == 1280) {
+			bounceX();
+			deadBullet();
+		}
+		if (location.y == 0 || location.y == 720) {
+			bounceY();
+			deadBullet();
+		}
+		
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
+	}
+	
+	public void bounceX() {
+		velocity.x *= -1;
+		rCount++;
+	}
+	
+	public void bounceY() {
+		velocity.y *= -1;
+		rCount++;
+	}
+	
+	public void deadBullet() {
+		if (rCount >= rLimit)
+			location.x = 6000;
 	}
 
 	public int getStartFrame() {
