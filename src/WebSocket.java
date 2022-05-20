@@ -12,16 +12,22 @@ import java.util.regex.Pattern;
 
 public class WebSocket {
 
-	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
-		ServerSocket server = new ServerSocket(80);
+	private ServerSocket server;
+	private Socket client;
+	private InputStream in;
+	private OutputStream out;
+	private Scanner s;
+
+	public WebSocket() throws IOException, NoSuchAlgorithmException {
+		server = new ServerSocket(80);
 		try {
 			System.out.println("Server has started on 127.0.0.1:80.\r\nWaiting for a connection...");
-			Socket client = server.accept();
+			client = server.accept();
 			System.out.println("A client connected.");
 
-			InputStream in = client.getInputStream();
-			OutputStream out = client.getOutputStream();
-			Scanner s = new Scanner(in, "UTF-8");
+			in = client.getInputStream();
+			out = client.getOutputStream();
+			s = new Scanner(in, "UTF-8");
 
 			try {
 				String data = s.useDelimiter("\\r\\n\\r\\n").next();
@@ -52,4 +58,7 @@ public class WebSocket {
 		}
 	}
 
+	public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
+		new WebSocket();
+	}
 }
