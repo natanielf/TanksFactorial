@@ -25,7 +25,6 @@ public class Bullet {
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
-		// TODO: I can't test the compiler, so idk if the limits are correct
 		if (location.x == 0 || location.x == 1280)
 			velocity.x *= -1;
 		if (location.y == 0 || location.y == 720)
@@ -33,9 +32,7 @@ public class Bullet {
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
 	}
-	
-	
-	
+
 	public int getStartFrame() {
 		return this.startFrame;
 	}
