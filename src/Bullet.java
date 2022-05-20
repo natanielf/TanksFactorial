@@ -16,6 +16,14 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 	}
 
+	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
+		this(app, tankX, tankY, mouseX, mouseY);
+		if (!variableSpeed) {
+			this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
+			this.minVelocity = velocity;
+		}
+	}
+
 	public void paint() {
 		if (app.frameCount % 10 == 0) {
 			if (velocity.x > minVelocity.x)

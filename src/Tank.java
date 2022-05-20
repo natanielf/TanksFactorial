@@ -72,7 +72,7 @@ public class Tank {
 	public void shoot(int mX, int mY) {
 		if (ammo > 0) {
 			ammo--;
-			bullets.add(new Bullet(app, (int) location.x, (int) location.y, mX, mY));
+			bullets.add(new Bullet(app, (int) location.x, (int) location.y, mX, mY, false));
 		}
 	}
 
