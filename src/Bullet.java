@@ -6,7 +6,8 @@ public class Bullet {
 	private PApplet app;
 	private PVector location, velocity, minVelocity;
 	private int size, startFrame, rCount, rLimit;
-
+	private Arena arena;
+	
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
 		this.location = new PVector(tankX, tankY);
