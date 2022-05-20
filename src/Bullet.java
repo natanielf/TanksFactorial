@@ -1,44 +1,48 @@
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Bullet {
 
 	private PApplet app;
-	private int x, y, size, vX, vY;
-	static final int MAXSPEED = 20, MINSPEED = 5;
+	private int size, startFrame;
+	private PVector location, velocity, minVelocity;
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
-		this.x = tankX;
-		this.y = tankY;
-		this.vX = Math.min((mouseX - tankX) / 20, MAXSPEED);
-		this.vY = Math.min((mouseY - tankY) / 20, MAXSPEED);
+		this.location = new PVector(tankX, tankY);
 		this.size = 8;
+		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
+		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
+		this.startFrame = app.frameCount;
 	}
 
-	public void bounce(int d) {
-		switch (d) {
-			case 0:
-				vY = 0 - vY;
-			case 1:
-				vX = 0 - vX;
-			case 2:
-				vY = Math.abs(vY);
-			case 3:
-				vX = Math.abs(vX);
+	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
+		this(app, tankX, tankY, mouseX, mouseY);
+		if (!variableSpeed) {
+			this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
+			this.minVelocity = velocity;
 		}
 	}
 
 	public void paint() {
-		if (app.frameCount % 5 == 0) {
-			if (vX > MINSPEED)
-				vX--;
-			if (vY > MINSPEED)
-				vY--;
+		if (app.frameCount % 10 == 0) {
+			if (velocity.x > minVelocity.x)
+				velocity.x -= velocity.x / 100;
+			if (velocity.y > minVelocity.y)
+				velocity.y -= velocity.y / 100;
 		}
-		x += vX;
-		y += vY;
+		location.x += velocity.x;
+		location.y += velocity.y;
+		if (location.x == 0 || location.x == 1280)
+			velocity.x *= -1;
+		if (location.y == 0 || location.y == 720)
+			velocity.y *= -1;
 		app.fill(0, 0, 0);
-		app.ellipse(x, y, size, size);
+		app.ellipse(location.x, location.y, size, size);
+	}
+
+	public int getStartFrame() {
+		return this.startFrame;
 	}
 
 }

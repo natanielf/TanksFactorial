@@ -36,9 +36,14 @@ public class Arena {
 		createArena();
 		this.width = fW;
 		this.height = fH;
+<<<<<<< HEAD
 		this.tileSpacer = 1;
 		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
 		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
+=======
+		this.tileSpacer = 0;
+		this.tileSize = Math.min(width / cols, height / rows);
+>>>>>>> branch 'main' of https://github.com/natanielf/TanksFactorial.git
 		createArena();
 	}
 
