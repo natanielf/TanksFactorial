@@ -16,6 +16,14 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 	}
 
+	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
+		this(app, tankX, tankY, mouseX, mouseY);
+		if (!variableSpeed) {
+			this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
+			this.minVelocity = velocity;
+		}
+	}
+
 	public void paint() {
 		if (app.frameCount % 10 == 0) {
 			if (velocity.x > minVelocity.x)
@@ -25,7 +33,6 @@ public class Bullet {
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
-		// TODO: I can't test the compiler, so idk if the limits are correct
 		if (location.x == 0 || location.x == 1280)
 			velocity.x *= -1;
 		if (location.y == 0 || location.y == 720)
@@ -33,9 +40,7 @@ public class Bullet {
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
 	}
-	
-	
-	
+
 	public int getStartFrame() {
 		return this.startFrame;
 	}

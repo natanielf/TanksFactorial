@@ -13,9 +13,6 @@ public class Game extends PApplet {
 	private Tank opponent;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
 		Game g = new Game();
