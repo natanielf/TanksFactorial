@@ -135,10 +135,6 @@ public class Game extends PApplet {
 		}
 	}
 
-	public Arena getArena() {
-		return this.arena;
-	}
-
 	private void createSurface() {
 		this.surface = new PSurface() {
 
