@@ -43,7 +43,7 @@ public class Game extends PApplet {
 	public void setup() {
 		surface.setTitle("Tanks!");
 		surface.setResizable(true);
-		cursor(CROSS);
+		cursor(CROSS); 
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
 		PFont font = createFont("DejaVu Sans", 48);
