@@ -5,18 +5,40 @@ import java.util.Scanner;
 import processing.core.PApplet;
 
 public class Arena {
-
+	// mult(iplier) can be used to increase the size of the game screen
+	protected Tile[][] grid;
+	protected int width, height, rows, cols, tileSize, tileSpacer;
 	private PApplet app;
-	private Tile[][] grid;
-	private int width, height, rows, cols, tileSize, tileSpacer;
 	private static final int MARGIN = 30;
 
 	public Arena(PApplet app, int fW, int fH) {
 		this.app = app;
 		this.rows = 18;
 		this.cols = 32;
+
+		createArena();
+		this.tileSize = 30;
+		this.tileSpacer = 1;
+	}
+
+	public Arena(File f) {
+		this.rows = 18;
+		this.cols = 32;
+		this.tileSize = 30;
+		this.tileSpacer = 1;
+		createArena();
+		textFileInput(f);
+	}
+
+	public Arena(int fW, int fH) {
+		this.rows = 18;
+		this.cols = 32;
+		createArena();
 		this.width = fW;
 		this.height = fH;
+		this.tileSpacer = 1;
+		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
 		this.tileSpacer = 0;
 		this.tileSize = Math.min(width / cols, height / rows);
 		createArena();
