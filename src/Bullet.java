@@ -2,10 +2,11 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-
+	
 	private PApplet app;
 	private PVector location, velocity, minVelocity;
-	private int size, startFrame, rCount, rLimit;
+	private int size, startFrame, rCount, rLimit, numBlackTiles;
+	private Tile[] blackTiles;
 	
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
@@ -16,6 +17,7 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
 		this.rLimit = 2;
+		this.numBlackTiles = 0;
 	}
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
@@ -50,6 +52,21 @@ public class Bullet {
 		
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
+	}
+	
+	public int getNumBlackTiles() {
+		for (int r = 0; r < grid.length; r++) {
+			for (int c = 0; c < grid[0].length; c++) {
+				if () {
+					numBlackTiles++;
+				}
+			}
+		}
+		return numBlackTiles;
+	}
+	
+	public void createBlackTiles() {
+		blackTiles = new Tile[getNumBlackTiles()];
 	}
 	
 	public void bounceX() {

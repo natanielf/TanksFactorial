@@ -6,7 +6,7 @@ import processing.core.PApplet;
 
 public class Arena {
 	// mult(iplier) can be used to increase the size of the game screen
-	public Tile[][] grid;
+	private Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
 	private PApplet app;
 	private static final int MARGIN = 30;
@@ -98,7 +98,7 @@ public class Arena {
 			e.printStackTrace();
 		}
 	}
-
+	
 	public int getWidth() {
 		return width;
 	}
