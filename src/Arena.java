@@ -5,6 +5,7 @@ import java.util.Scanner;
 import processing.core.PApplet;
 
 public class Arena {
+
 	// mult(iplier) can be used to increase the size of the game screen
 	private Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
@@ -56,6 +57,16 @@ public class Arena {
 				grid[r][c].paint();
 			}
 		}
+	}
+
+	public boolean collide(int x, int y) {
+		for (int r = 0; r < rows; r++) {
+			for (int c = 0; c < cols; c++) {
+				if (grid[r][c].collide(x, y))
+					return true;
+			}
+		}
+		return false;
 	}
 
 	public void createArena() {

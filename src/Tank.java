@@ -79,7 +79,7 @@ public class Tank {
 	public void paint() {
 		update();
 		app.strokeWeight(0);
-		app.fill(20, 115, 250);
+		setColor();
 		app.ellipse(location.x, location.y, size, size);
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
@@ -89,6 +89,10 @@ public class Tank {
 		for (Bullet b : bullets) {
 			b.paint();
 		}
+	}
+	
+	public void setColor() {
+		app.fill(200, 0, 0);
 	}
 
 	public void replenishAmmo() {

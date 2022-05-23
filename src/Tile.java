@@ -16,18 +16,22 @@ public class Tile {
 
 	public void paint() {
 		switch (type) {
-			case 0:
-				app.fill(200);
-				break;
-			case 1:
-				app.fill(50);
-				break;
-			default:
-				app.fill(200, 0, 0);
-				break;
+		case 0:
+			app.fill(200);
+			break;
+		case 1:
+			app.fill(50);
+			break;
+		default:
+			app.fill(200, 0, 0);
+			break;
 		}
 		app.noStroke();
 		app.rect(location.x, location.y, size, size);
+	}
+
+	public boolean collide(int x, int y) {
+		return (x > location.x || x < location.x + size) && (y > location.y || y < location.y + size);
 	}
 
 	public void setType(int type) {

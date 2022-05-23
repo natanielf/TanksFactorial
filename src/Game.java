@@ -17,19 +17,24 @@ public class Game extends PApplet {
 	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
+	private boolean localGame;
 	int aimX, aimY;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
-		Game g = new Game();
+		Game g = new Game(true);
 		PApplet.runSketch(processingArgs, g);
 	}
 
-	public Game() {
+	public Game(boolean localGame) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 100, 100, 40);
+		this.player = new PlayerTank(this, 100, 100, 36);
+		this.localGame = localGame;
+		if (localGame) {
+			opponent = new Tank(this, 1050, 525, 36);
+		}
 		createSurface();
 	}
 
@@ -54,8 +59,10 @@ public class Game extends PApplet {
 	public void draw() {
 		background(150);
 		arena.paint();
-		paintAimLine();
 		player.paint();
+		if (localGame) {
+			opponent.paint();
+		}
 		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
