@@ -6,20 +6,19 @@ import processing.core.PImage;
 import processing.core.PSurface;
 
 public class Game extends PApplet {
-	
+
 	// TODO:
 	// make a new parameter passing the areana in player
 	// somehow get the arena from the tank class into the bullet class
 	// pass in the arena in the bullet parameter
 	// check for any black tiles
-	
+
 	private Arena arena;
 	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
 	int aimX, aimY;
-	PImage background;
-	static final int FRAMEWIDTH = 400, FRAMEHEIGHT = 234, FRAMERATE = 60;
+	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
@@ -43,53 +42,49 @@ public class Game extends PApplet {
 	public void setup() {
 		surface.setTitle("Tanks!");
 		surface.setResizable(true);
-		cursor(CROSS); 
+		cursor(CROSS);
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
-		PFont font = createFont("DejaVu Sans", 48);
+		PFont font = createFont("Arial", 48);
 		textFont(font);
 		textAlign(CENTER, CENTER);
-		background = loadImage("saulGooman.jpg");
 	}
-	
-	//Used to update the frames of the game
+
+	// Used to update the frames of the game
 	public void draw() {
-		background(background);
+		background(150);
 		arena.paint();
 		paintAimLine();
 		player.paint();
 		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
-		//Allows aimline to follow cursor
-		updateAim(10);
-		
 	}
 
-	//prints the aim line
+	// prints the aim line
 	public void paintAimLine() {
 		stroke(0, 0, 0);
 		strokeWeight(2);
 		strokeCap(ROUND);
-		line(player.getX(), player.getY(), aimX, aimY);
+		line(player.getX(), player.getY(), mouseX, mouseY);
 	}
 
 	@Override
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-				case 'W':
-					player.moveNorth();
-					break;
-				case 'A':
-					player.moveWest();
-					break;
-				case 'S':
-					player.moveSouth();
-					break;
-				case 'D':
-					player.moveEast();
-					break;
+			case 'W':
+				player.moveNorth();
+				break;
+			case 'A':
+				player.moveWest();
+				break;
+			case 'S':
+				player.moveSouth();
+				break;
+			case 'D':
+				player.moveEast();
+				break;
 			}
 		}
 	}
@@ -100,47 +95,46 @@ public class Game extends PApplet {
 			player.shoot(mouseX, mouseY);
 		}
 	}
-	
-	//Updates the aim-line to go towards the cursor
+
+	// Updates the aim-line to go towards the cursor
 	public void updateAim(int n) {
-		if (mouseX-10 >= aimX)
+		if (mouseX - 10 >= aimX)
 			aimX += n;
-		else if (mouseX+10 <= aimX)
+		else if (mouseX + 10 <= aimX)
 			aimX -= n;
-		
-		if (mouseY-10 >= aimY)
+
+		if (mouseY - 10 >= aimY)
 			aimY += n;
-		else if (mouseY+10 <= aimY)
+		else if (mouseY + 10 <= aimY)
 			aimY -= n;
-		
+
 		if (Math.abs(mouseX - aimX) < 10)
 			aimX = mouseX;
 		if (Math.abs(mouseY - aimY) < 10)
 			aimY = mouseY;
-		
+
 	}
-	
 
 	@Override
 	public void keyReleased() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-				case 'W':
-					player.stopY();
-					break;
-				case 'A':
-					player.stopX();
-					break;
-				case 'S':
-					player.stopY();
-					break;
-				case 'D':
-					player.stopX();
-					break;
+			case 'W':
+				player.stopY();
+				break;
+			case 'A':
+				player.stopX();
+				break;
+			case 'S':
+				player.stopY();
+				break;
+			case 'D':
+				player.stopX();
+				break;
 			}
 		}
 	}
-	
+
 	public Arena getArena() {
 		return this.arena;
 	}
