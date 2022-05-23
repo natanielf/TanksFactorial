@@ -15,10 +15,11 @@ public class Arena {
 		this.app = app;
 		this.rows = 18;
 		this.cols = 32;
-
+		this.width = fW;
+		this.height = fH;
+		this.tileSize = 36;
+		this.tileSpacer = 0;
 		createArena();
-		this.tileSize = 30;
-		this.tileSpacer = 1;
 	}
 
 	public Arena(File f) {
@@ -78,15 +79,15 @@ public class Arena {
 						char c = lineArray[i];
 						int type = 0;
 						switch (c) {
-							case '_':
-								type = 0;
-								break;
-							case 'X':
-								type = 1;
-								break;
-							default:
-								type = -1;
-								break;
+						case '_':
+							type = 0;
+							break;
+						case 'X':
+							type = 1;
+							break;
+						default:
+							type = -1;
+							break;
 						}
 						grid[r][i].setType(type);
 					}
