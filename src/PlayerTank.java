@@ -3,8 +3,8 @@ import processing.core.PApplet;
 
 public class PlayerTank extends Tank {
 
-	public PlayerTank(PApplet app, int x, int y, int size) {
-		super(app, x, y, size);
+	public PlayerTank(PApplet app, int x, int y, int size, Arena map) {
+		super(app, x, y, size, map);
 	}
 	
 	@Override

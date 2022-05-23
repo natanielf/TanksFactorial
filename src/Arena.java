@@ -58,7 +58,7 @@ public class Arena {
 		}
 	}
 
-	public boolean collide(int x, int y) {
+	public boolean collide(float x, float y) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
 				if (grid[r][c].collide(x, y))

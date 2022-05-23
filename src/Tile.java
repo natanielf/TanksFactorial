@@ -30,8 +30,8 @@ public class Tile {
 		app.rect(location.x, location.y, size, size);
 	}
 
-	public boolean collide(int x, int y) {
-		return (x > location.x || x < location.x + size) && (y > location.y || y < location.y + size);
+	public boolean collide(float x, float y) {
+		return (x > location.x  && x < location.x + size) && (y > location.y && y < location.y + size);
 	}
 
 	public void setType(int type) {

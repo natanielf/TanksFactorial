@@ -71,7 +71,7 @@ public class Tank {
 			location.y += velocity.y;
 		}
 		
-		if(map.collide(location.x, location.y) {
+		if (map.collide(location.x, location.y)) {
 			stopX();
 			stopY();
 			System.out.println("I Better Call Saul!");

@@ -30,10 +30,10 @@ public class Game extends PApplet {
 	public Game(boolean localGame) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 100, 100, 36);
+		this.player = new PlayerTank(this, 100, 100, 36, arena);
 		this.localGame = localGame;
 		if (localGame) {
-			opponent = new Tank(this, 1050, 525, 36);
+			opponent = new Tank(this, 1050, 525, 36, arena);
 		}
 		createSurface();
 	}
