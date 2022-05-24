@@ -30,12 +30,17 @@ public class Tile {
 		app.rect(location.x, location.y, size, size);
 	}
 
-	public boolean collide(int x, int y) {
-		return (x > location.x || x < location.x + size) && (y > location.y || y < location.y + size);
+	public boolean collide(PVector tank) {
+		return (tank.x >= location.x && tank.x <= location.x + size)
+			&& (tank.y >= location.y && tank.y <= location.y + size);
 	}
 
 	public void setType(int type) {
 		this.type = type;
+	}
+	
+	public int getType() {
+		return type;
 	}
 
 }

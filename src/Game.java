@@ -11,7 +11,7 @@ import processing.data.JSONObject;
 public class Game extends PApplet {
 
 	// TODO:
-	// make a new parameter passing the areana in player
+	// make a new parameter passing the arena in player
 	// somehow get the arena from the tank class into the bullet class
 	// pass in the arena in the bullet parameter
 	// check for any black tiles
@@ -36,10 +36,10 @@ public class Game extends PApplet {
 	public Game(String[] args) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 100, 100, 36);
+		this.player = new PlayerTank(this, 100, 100, 36, arena);
 		parseArgs(args);
 		if (config.getBoolean("singlePlayer")) {
-			this.opponent = new Tank(this, 1050, 525, 36);
+			this.opponent = new Tank(this, 1050, 525, 36, arena);
 		} else {
 			if (config.getBoolean("server")) {
 				try {
