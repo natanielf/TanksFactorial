@@ -20,7 +20,7 @@ public class Server {
 
 		try {
 			server = new ServerSocket(port);
-			System.out.println("Server has started on 127.0.0.1:80.\r\nWaiting for a connection...");
+			System.out.println("Server has started on " + hostAddress + ":" + port + ".\r\nWaiting for a connection...");
 			socket = server.accept();
 			System.out.println("A client connected.");
 			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
