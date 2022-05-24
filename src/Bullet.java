@@ -1,15 +1,19 @@
+import java.io.File;
+
 import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-
+	
 	private PApplet app;
+	private Arena arena;
 	private PVector location, velocity, minVelocity;
 	private int size, startFrame, rCount, rLimit, numBlackTiles;
 	private Tile[] blackTiles;
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
+		this.arena = new Arena(app, 1280, 720, new File("./maps/test.txt"));
 		this.location = new PVector(tankX, tankY);
 		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
 		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
@@ -17,7 +21,7 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
 		this.rLimit = 2;
-		this.numBlackTiles = 0;
+		createNumBlackTiles();
 	}
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
@@ -55,20 +59,25 @@ public class Bullet {
 		app.ellipse(location.x, location.y, size, size);
 	}
 
-	// public int getNumBlackTiles() {
-	// for (int r = 0; r < grid.length; r++) {
-	// for (int c = 0; c < grid[0].length; c++) {
-	// if () {
-	// numBlackTiles++;
-	// }
-	// }
-	// }
-	// return numBlackTiles;
-	// }
-
-	// public void createBlackTiles() {
-	// blackTiles = new Tile[getNumBlackTiles()];
-	// }
+	public void createNumBlackTiles() {
+		this.numBlackTiles = 0;
+		int index = 0;
+		Tile[][] grid = arena.getGrid();
+		for (int r = 0; r < grid.length; r++) {
+			for (int c = 0; c < grid[0].length; c++) {
+				if (grid[r][c].getType() == 1) {
+					createBlackTiles(index, grid[r][c]);
+					index++;
+					numBlackTiles++;
+				}
+			}
+		}
+	}
+	
+	public void createBlackTiles(int index, Tile tile) {
+		blackTiles = new Tile[numBlackTiles];
+		blackTiles[index] = tile;
+	}
 
 	public void bounceX() {
 		velocity.x *= -1;
