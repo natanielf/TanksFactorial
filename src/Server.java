@@ -20,13 +20,18 @@ public class Server {
 
 		try {
 			server = new ServerSocket(port);
-			System.out.println("Server has started on " + hostAddress + ":" + port + ".\r\nWaiting for a connection...");
+			System.out.println("Server has started on " + hostAddress + ":" + port + ".");
+			System.out.println("Waiting for a connection...");
 			socket = server.accept();
-			System.out.println("A client connected.");
+			System.out.println("A client connected." + " (" + socket.getInetAddress() + ")");
 			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 
-			// TODO: Event loop logic for server
+		// TODO: Event loop logic for server
 
+		try {
 			socket.close();
 			in.close();
 		} catch (IOException e) {
