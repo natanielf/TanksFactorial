@@ -32,23 +32,7 @@ public class Game extends PApplet {
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new PlayerTank(this, 100, 100, 36, arena);
 		parseArgs(args);
-		if (config.getBoolean("singlePlayer")) {
-			this.opponent = new Tank(this, 1050, 525, 36, arena);
-		} else {
-			if (config.getBoolean("server")) {
-				try {
-					this.server = new Server(80);
-				} catch (UnknownHostException e) {
-					e.printStackTrace();
-				}
-			} else {
-				try {
-					this.client = new Client(config.getString("address"), 80);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
-		}
+		parseConfig();
 		createSurface();
 	}
 
@@ -104,6 +88,26 @@ public class Game extends PApplet {
 		// Default to single player games if no arguments are provided
 		if (!config.hasKey("singlePlayer")) {
 			config.put("singlePlayer", true);
+		}
+	}
+
+	public void parseConfig() {
+		if (config.getBoolean("singlePlayer")) {
+			this.opponent = new Tank(this, 1050, 525, 36, arena);
+		} else {
+			if (config.getBoolean("server")) {
+				try {
+					this.server = new Server(80);
+				} catch (UnknownHostException e) {
+					e.printStackTrace();
+				}
+			} else {
+				try {
+					this.client = new Client(config.getString("address"), 80);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
 		}
 	}
 
