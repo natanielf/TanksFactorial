@@ -8,7 +8,7 @@ import processing.core.PSurface;
 public class Game extends PApplet {
 
 	// TODO:
-	// make a new parameter passing the areana in player
+	// make a new parameter passing the arena in player
 	// somehow get the arena from the tank class into the bullet class
 	// pass in the arena in the bullet parameter
 	// check for any black tiles
