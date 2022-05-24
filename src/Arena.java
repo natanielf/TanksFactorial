@@ -3,6 +3,7 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import processing.core.PApplet;
+import processing.core.PVector;
 
 public class Arena {
 
@@ -59,10 +60,10 @@ public class Arena {
 		}
 	}
 
-	public boolean collide(float x, float y) {
+	public boolean collide(PVector tank) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				if (grid[r][c].collide(x, y))
+				if (gridgrid[r][c].getType() == 1 && gridgrid[r][c].collide(tank))
 					return true;
 			}
 		}

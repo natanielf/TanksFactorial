@@ -11,5 +11,5 @@ public class PlayerTank extends Tank {
 	public void setColor() {
 		app.fill(20, 115, 250);
 	}
-
+	
 }
