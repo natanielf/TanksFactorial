@@ -10,12 +10,6 @@ import processing.data.JSONObject;
 
 public class Game extends PApplet {
 
-	// TODO:
-	// make a new parameter passing the arena in player
-	// somehow get the arena from the tank class into the bullet class
-	// pass in the arena in the bullet parameter
-	// check for any black tiles
-
 	private Arena arena;
 	private HUD hud;
 	private PlayerTank player;
@@ -26,7 +20,6 @@ public class Game extends PApplet {
 	private Server server;
 	private Client client;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
-	PImage background;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
@@ -74,14 +67,12 @@ public class Game extends PApplet {
 		PFont font = createFont("Arial", 48);
 		textFont(font);
 		textAlign(CENTER, CENTER);
-		  background = loadImage("saulGoodman-1280-720.jpg");
-
 	}
 
 	// Used to update the frames of the game
 	@Override
 	public void draw() {
-		background(background);
+		background(150);
 		arena.paint();
 		player.paint();
 		if (opponent != null) {
@@ -116,9 +107,9 @@ public class Game extends PApplet {
 		}
 	}
 
-	// Paints the aim line
+	// Paints the aim line from the tank to the cursor
 	public void paintAimLine() {
-		stroke(0, 0, 0);
+		stroke(0);
 		strokeWeight(2);
 		strokeCap(ROUND);
 		line(player.getX(), player.getY(), mouseX, mouseY);
