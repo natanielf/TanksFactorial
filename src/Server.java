@@ -1,8 +1,10 @@
 import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.net.UnknownHostException;
 
 public class Server {
 
@@ -10,9 +12,11 @@ public class Server {
 	private ServerSocket server;
 	private DataInputStream in;
 	private int port;
+	private String hostAddress;
 
-	public Server(int port) {
+	public Server(int port) throws UnknownHostException {
 		this.port = port;
+		this.hostAddress = InetAddress.getLocalHost().getHostAddress();
 
 		try {
 			server = new ServerSocket(port);
@@ -25,13 +29,12 @@ public class Server {
 
 			socket.close();
 			in.close();
-
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws UnknownHostException {
 		new Server(80);
 	}
 

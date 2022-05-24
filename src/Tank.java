@@ -19,7 +19,7 @@ public class Tank {
 		this.maxAmmo = 5;
 		this.ammo = maxAmmo;
 		speed = 6;
-		size = s;
+		size = s; 
 		bullets = new ArrayList<>();
 		this.map = map;
 	}
@@ -63,19 +63,19 @@ public class Tank {
 	}
 
 	public void update() {
-		if (velocity.x != 0 && velocity.y != 0) {
-			location.x += velocity.x / Math.sqrt(2);
-			location.y += velocity.y / Math.sqrt(2);
-		} else {
-			location.x += velocity.x;
-			location.y += velocity.y;
-		}
 		
-		if (map.collide(location.x, location.y)) {
-			stopX();
-			stopY();
-			System.out.println("I Better Call Saul!");
+		
+		if (!map.collide(location)) {
+			if (velocity.x != 0 && velocity.y != 0) {
+				location.x += velocity.x / Math.sqrt(2);
+				location.y += velocity.y / Math.sqrt(2);
+			} else {
+				location.x += velocity.x;
+				location.y += velocity.y;
+			}
 		}
+		else
+			System.out.println("I'd Better Call Saul!");
 		
 		
 	}
