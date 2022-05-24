@@ -26,6 +26,7 @@ public class Game extends PApplet {
 	private Server server;
 	private Client client;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
+	PImage background;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
@@ -73,12 +74,14 @@ public class Game extends PApplet {
 		PFont font = createFont("Arial", 48);
 		textFont(font);
 		textAlign(CENTER, CENTER);
+		  background = loadImage("saulGoodman-1280-720.jpg");
+
 	}
 
 	// Used to update the frames of the game
 	@Override
 	public void draw() {
-		background(150);
+		background(background);
 		arena.paint();
 		player.paint();
 		if (opponent != null) {
