@@ -63,7 +63,7 @@ public class Arena {
 	public boolean collide(PVector tank) {
 		for (int r = 0; r < rows; r++) {
 			for (int c = 0; c < cols; c++) {
-				if (gridgrid[r][c].getType() == 1 && gridgrid[r][c].collide(tank))
+				if (grid[r][c].getType() == 1 && grid[r][c].collide(tank))
 					return true;
 			}
 		}
@@ -109,6 +109,10 @@ public class Arena {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public Tile[][] getGrid() {
+		return grid;
 	}
 	
 	public int getWidth() {
