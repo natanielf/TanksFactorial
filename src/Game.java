@@ -18,7 +18,7 @@ public class Game extends PApplet {
 	private PlayerTank player;
 	private Tank opponent;
 	private boolean localGame;
-	int aimX, aimY;
+	private int aimX, aimY;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
 
 	public static void main(String[] args) {
@@ -56,6 +56,7 @@ public class Game extends PApplet {
 	}
 
 	// Used to update the frames of the game
+	@Override
 	public void draw() {
 		background(150);
 		arena.paint();
@@ -68,7 +69,7 @@ public class Game extends PApplet {
 			player.replenishAmmo();
 	}
 
-	// prints the aim line
+	// Paints the aim line
 	public void paintAimLine() {
 		stroke(0, 0, 0);
 		strokeWeight(2);
@@ -80,18 +81,18 @@ public class Game extends PApplet {
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.moveNorth();
-				break;
-			case 'A':
-				player.moveWest();
-				break;
-			case 'S':
-				player.moveSouth();
-				break;
-			case 'D':
-				player.moveEast();
-				break;
+				case 'W':
+					player.moveNorth();
+					break;
+				case 'A':
+					player.moveWest();
+					break;
+				case 'S':
+					player.moveSouth();
+					break;
+				case 'D':
+					player.moveEast();
+					break;
 			}
 		}
 	}
@@ -126,18 +127,18 @@ public class Game extends PApplet {
 	public void keyReleased() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.stopY();
-				break;
-			case 'A':
-				player.stopX();
-				break;
-			case 'S':
-				player.stopY();
-				break;
-			case 'D':
-				player.stopX();
-				break;
+				case 'W':
+					player.stopY();
+					break;
+				case 'A':
+					player.stopX();
+					break;
+				case 'S':
+					player.stopY();
+					break;
+				case 'D':
+					player.stopX();
+					break;
 			}
 		}
 	}

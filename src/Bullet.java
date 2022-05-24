@@ -2,12 +2,12 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-	
+
 	private PApplet app;
 	private PVector location, velocity, minVelocity;
 	private int size, startFrame, rCount, rLimit, numBlackTiles;
 	private Tile[] blackTiles;
-	
+
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
 		this.location = new PVector(tankX, tankY);
@@ -37,10 +37,11 @@ public class Bullet {
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
-		
+
 		// TODO: Fix the if statement logic
-		// pass in the arena, traverse the arena, check for black tiles, if black, then bounce!
-		
+		// pass in the arena, traverse the arena, check for black tiles, if black, then
+		// bounce!
+
 		if (location.x == 0 || location.x == 1280) {
 			bounceX();
 			deadBullet();
@@ -49,36 +50,36 @@ public class Bullet {
 			bounceY();
 			deadBullet();
 		}
-		
+
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
 	}
-	
-	public int getNumBlackTiles() {
-		for (int r = 0; r < grid.length; r++) {
-			for (int c = 0; c < grid[0].length; c++) {
-				if () {
-					numBlackTiles++;
-				}
-			}
-		}
-		return numBlackTiles;
-	}
-	
-	public void createBlackTiles() {
-		blackTiles = new Tile[getNumBlackTiles()];
-	}
-	
+
+	// public int getNumBlackTiles() {
+	// for (int r = 0; r < grid.length; r++) {
+	// for (int c = 0; c < grid[0].length; c++) {
+	// if () {
+	// numBlackTiles++;
+	// }
+	// }
+	// }
+	// return numBlackTiles;
+	// }
+
+	// public void createBlackTiles() {
+	// blackTiles = new Tile[getNumBlackTiles()];
+	// }
+
 	public void bounceX() {
 		velocity.x *= -1;
 		rCount++;
 	}
-	
+
 	public void bounceY() {
 		velocity.y *= -1;
 		rCount++;
 	}
-	
+
 	public void deadBullet() {
 		if (rCount >= rLimit)
 			location.x = 6000;
