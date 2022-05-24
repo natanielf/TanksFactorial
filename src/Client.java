@@ -24,6 +24,7 @@ public class Client {
 			in = new DataInputStream(System.in);
 			out = new DataOutputStream(socket.getOutputStream());
 			connected = true;
+			System.out.println("Connected to server.");
 		} catch (UnknownHostException e) {
 			System.err.println(e);
 		} catch (IOException e) {
