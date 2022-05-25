@@ -29,18 +29,21 @@ public class Server {
 			System.out.println("A client connected." + " (" + socket.getInetAddress() + ")");
 			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 		} catch (IOException e) {
-			e.printStackTrace();
+			System.err.println(e);
 		}
 
 		// TODO: Event loop logic for server
 
-		try {
-			socket.close();
-			in.close();
-			connected = false;
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (connected) {
+			try {
+				socket.close();
+				in.close();
+				connected = false;
+			} catch (IOException e) {
+				System.err.println(e);
+			}
 		}
+
 	}
 
 	public static void main(String[] args) throws UnknownHostException {
