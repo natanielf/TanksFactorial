@@ -70,22 +70,25 @@ public class Game extends PApplet {
 	public void parseArgs(String[] args) {
 		this.config = new JSONObject();
 		for (String arg : args) {
-			if (arg.equals("--single")) {
+			switch (arg) {
+			case "--single":
 				config.put("singlePlayer", true);
-			}
-			if (arg.equals("--server")) {
+				break;
+			case "--server":
 				config.put("singlePlayer", false);
 				config.put("server", true);
-			}
-			if (arg.equals("--client")) {
+				break;
+			case "--client":
 				config.put("singlePlayer", false);
 				config.put("server", false);
-			}
-			if (arg.contains(".")) {
-				config.put("address", arg);
+				break;
+			default:
+				if (arg.contains("."))
+					config.put("address", arg);
+				break;
 			}
 		}
-		// Default to single player games if no arguments are provided
+		// Default to a single player game if no arguments are provided
 		if (!config.hasKey("singlePlayer")) {
 			config.put("singlePlayer", true);
 		}
