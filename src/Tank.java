@@ -61,9 +61,9 @@ public class Tank {
 	public int getAmmo() {
 		return ammo;
 	}
-
+	
+	PVector pv = new PVector(0,0);
 	public void update() {
-		
 		
 		if (!map.collide(location)) {
 			if (velocity.x != 0 && velocity.y != 0) {
@@ -76,8 +76,6 @@ public class Tank {
 		}
 		else
 			System.out.println("I'd Better Call Saul!");
-		
-		
 	}
 
 	public void shoot(int mX, int mY) {
@@ -109,6 +107,10 @@ public class Tank {
 	public void replenishAmmo() {
 		if (ammo < maxAmmo)
 			ammo++;
+	}
+	
+	public void setX(float x) {
+		location.x = x;
 	}
 
 }

@@ -65,6 +65,9 @@ public class Game extends PApplet {
 		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
+		
+		float yourMother = constrain(player.getX(), arena.MARGIN, arena.width-arena.MARGIN);
+		player.setX(yourMother);
 	}
 
 	public void parseArgs(String[] args) {
