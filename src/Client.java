@@ -55,7 +55,7 @@ public class Client {
 	}
 
 	public String getData() {
-		return null;
+		return "{}";
 	}
 
 }

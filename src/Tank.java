@@ -131,8 +131,13 @@ public class Tank {
 
 	public void fromJSON(String source) {
 		JSONObject tank = JSONObject.parse(source);
-		this.location.x = tank.getJSONObject("location").getInt("x");
-		this.location.y = tank.getJSONObject("location").getInt("y");
+		if (tank.size() == 0) {
+			return;
+		}
+		if (tank.hasKey("location")) {
+			this.location.x = tank.getJSONObject("location").getInt("x");
+			this.location.y = tank.getJSONObject("location").getInt("y");
+		}
 	}
 
 }

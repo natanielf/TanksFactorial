@@ -55,7 +55,7 @@ public class Server {
 	}
 
 	public String getData() {
-		return null;
+		return "{}";
 	}
 
 }
