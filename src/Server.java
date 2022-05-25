@@ -31,23 +31,24 @@ public class Server {
 		} catch (IOException e) {
 			System.err.println(e);
 		}
-
-		// TODO: Event loop logic for server
-
-		if (connected) {
-			try {
-				socket.close();
-				in.close();
-				connected = false;
-			} catch (IOException e) {
-				System.err.println(e);
-			}
-		}
-
 	}
 
 	public static void main(String[] args) throws UnknownHostException {
 		new Server(80);
+	}
+
+	public void disconnect() {
+		if (connected) {
+			try {
+				socket.close();
+				in.close();
+				server.close();
+				connected = false;
+				System.out.println("Server has stopped running.");
+			} catch (IOException e) {
+				System.err.println(e);
+			}
+		}
 	}
 
 	public void sendData(String tank) {

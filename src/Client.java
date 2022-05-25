@@ -30,24 +30,24 @@ public class Client {
 		} catch (IOException e) {
 			System.err.println(e);
 		}
+	}
 
-		// TODO: Event loop logic for client
+	public static void main(String[] args) throws IOException {
+		new Client("127.0.0.1", 80);
+	}
 
+	public void disconnect() {
 		if (connected) {
 			try {
 				in.close();
 				out.close();
 				socket.close();
 				connected = false;
+				System.out.println("Disconnected from the server.");
 			} catch (IOException e) {
 				System.err.println(e);
 			}
 		}
-
-	}
-
-	public static void main(String[] args) throws IOException {
-		new Client("127.0.0.1", 80);
 	}
 
 	public void sendData(String tank) {
