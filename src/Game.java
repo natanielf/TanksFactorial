@@ -14,7 +14,6 @@ public class Game extends PApplet {
 	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
-	private boolean singlePlayer;
 	private int aimX, aimY;
 	private JSONObject config;
 	private Server server;
@@ -31,9 +30,9 @@ public class Game extends PApplet {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new PlayerTank(this, 100, 100, 36, arena);
+		createSurface();
 		parseArgs(args);
 		parseConfig();
-		createSurface();
 	}
 
 	@Override
@@ -59,9 +58,7 @@ public class Game extends PApplet {
 		background(150);
 		arena.paint();
 		player.paint();
-		if (opponent != null) {
-			opponent.paint();
-		}
+		paintOpponent();
 		hud.paint(player.getAmmo());
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
@@ -71,21 +68,21 @@ public class Game extends PApplet {
 		this.config = new JSONObject();
 		for (String arg : args) {
 			switch (arg) {
-			case "--single":
-				config.put("singlePlayer", true);
-				break;
-			case "--server":
-				config.put("singlePlayer", false);
-				config.put("server", true);
-				break;
-			case "--client":
-				config.put("singlePlayer", false);
-				config.put("server", false);
-				break;
-			default:
-				if (arg.contains("."))
-					config.put("address", arg);
-				break;
+				case "--single":
+					config.put("singlePlayer", true);
+					break;
+				case "--server":
+					config.put("singlePlayer", false);
+					config.put("server", true);
+					break;
+				case "--client":
+					config.put("singlePlayer", false);
+					config.put("server", false);
+					break;
+				default:
+					if (arg.contains("."))
+						config.put("address", arg);
+					break;
 			}
 		}
 		// Default to a single player game if no arguments are provided
@@ -102,15 +99,21 @@ public class Game extends PApplet {
 				try {
 					this.server = new Server(80);
 				} catch (UnknownHostException e) {
-					e.printStackTrace();
+					System.err.println(e);
 				}
 			} else {
 				try {
 					this.client = new Client(config.getString("address"), 80);
 				} catch (IOException e) {
-					e.printStackTrace();
+					System.err.println(e);
 				}
 			}
+		}
+	}
+
+	public void paintOpponent() {
+		if (opponent != null) {
+			opponent.paint();
 		}
 	}
 
@@ -126,18 +129,18 @@ public class Game extends PApplet {
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.moveNorth();
-				break;
-			case 'A':
-				player.moveWest();
-				break;
-			case 'S':
-				player.moveSouth();
-				break;
-			case 'D':
-				player.moveEast();
-				break;
+				case 'W':
+					player.moveNorth();
+					break;
+				case 'A':
+					player.moveWest();
+					break;
+				case 'S':
+					player.moveSouth();
+					break;
+				case 'D':
+					player.moveEast();
+					break;
 			}
 		}
 	}
@@ -172,18 +175,18 @@ public class Game extends PApplet {
 	public void keyReleased() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.stopY();
-				break;
-			case 'A':
-				player.stopX();
-				break;
-			case 'S':
-				player.stopY();
-				break;
-			case 'D':
-				player.stopX();
-				break;
+				case 'W':
+					player.stopY();
+					break;
+				case 'A':
+					player.stopX();
+					break;
+				case 'S':
+					player.stopY();
+					break;
+				case 'D':
+					player.stopX();
+					break;
 			}
 		}
 	}
