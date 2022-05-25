@@ -14,7 +14,6 @@ public class Game extends PApplet {
 	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
-	private int aimX, aimY;
 	private JSONObject config;
 	private Server server;
 	private Client client;
@@ -148,25 +147,6 @@ public class Game extends PApplet {
 		if (mouseButton == LEFT) {
 			player.shoot(mouseX, mouseY);
 		}
-	}
-
-	// Updates the aim-line to go towards the cursor
-	public void updateAim(int n) {
-		if (mouseX - 10 >= aimX)
-			aimX += n;
-		else if (mouseX + 10 <= aimX)
-			aimX -= n;
-
-		if (mouseY - 10 >= aimY)
-			aimY += n;
-		else if (mouseY + 10 <= aimY)
-			aimY -= n;
-
-		if (Math.abs(mouseX - aimX) < 10)
-			aimX = mouseX;
-		if (Math.abs(mouseY - aimY) < 10)
-			aimY = mouseY;
-
 	}
 
 	@Override
