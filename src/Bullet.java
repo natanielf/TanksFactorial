@@ -5,7 +5,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-	
+
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity, minVelocity;
@@ -71,19 +71,20 @@ public class Bullet {
 			}
 		}
 	}
-	
+
 	public boolean ifHitBlack(PVector location) {
 		for (int i = 0; i < blackTiles.size(); i++) {
 			if (((int) location.x >= (int) blackTiles.get(i).getLocation().x
 					&& (int) location.x <= (int) blackTiles.get(i).getLocation().x + (int) blackTiles.get(i).getSize())
-				&& ((int) location.y >= (int) blackTiles.get(i).getLocation().y
-					&& (int) location.y <= (int) blackTiles.get(i).getLocation().y + (int) blackTiles.get(i).getSize())) {
+					&& ((int) location.y >= (int) blackTiles.get(i).getLocation().y
+							&& (int) location.y <= (int) blackTiles.get(i).getLocation().y
+									+ (int) blackTiles.get(i).getSize())) {
 				return true;
 			}
 		}
 		return false;
 	}
-	
+
 	public void bounceX() {
 		velocity.x *= -1;
 		rCount++;
@@ -101,6 +102,14 @@ public class Bullet {
 
 	public int getStartFrame() {
 		return this.startFrame;
+	}
+
+	public int getX() {
+		return (int) location.x;
+	}
+
+	public int getY() {
+		return (int) location.y;
 	}
 
 }

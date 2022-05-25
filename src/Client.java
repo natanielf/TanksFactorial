@@ -50,4 +50,12 @@ public class Client {
 		new Client("127.0.0.1", 80);
 	}
 
+	public void sendData(String tank) {
+
+	}
+
+	public String getData() {
+		return null;
+	}
+
 }

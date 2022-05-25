@@ -60,6 +60,19 @@ public class Game extends PApplet {
 		player.paint();
 		paintOpponent();
 		hud.paint(player.getAmmo());
+		handleConnection();
+	}
+
+	public void handleConnection() {
+		if (!config.getBoolean("singlePlayer")) {
+			if (config.getBoolean("server")) {
+				opponent.fromJSON(server.getData());
+				server.sendData(player.toJSON());
+			} else {
+				opponent.fromJSON(client.getData());
+				client.sendData(player.toJSON());
+			}
+		}
 	}
 
 	public void parseArgs(String[] args) {
@@ -106,6 +119,7 @@ public class Game extends PApplet {
 					System.err.println(e);
 				}
 			}
+			this.opponent = new Tank(this, 1050, 525, 36, arena);
 		}
 	}
 

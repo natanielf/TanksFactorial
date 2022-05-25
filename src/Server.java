@@ -50,4 +50,12 @@ public class Server {
 		new Server(80);
 	}
 
+	public void sendData(String tank) {
+
+	}
+
+	public String getData() {
+		return null;
+	}
+
 }

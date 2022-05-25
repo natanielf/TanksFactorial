@@ -2,6 +2,7 @@ import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PVector;
+import processing.data.JSONObject;
 
 public class Tank {
 
@@ -107,6 +108,31 @@ public class Tank {
 			if (ammo < maxAmmo)
 				ammo++;
 		}
+	}
+
+	public String toJSON() {
+		JSONObject tank = new JSONObject();
+		JSONObject location = new JSONObject();
+		location.put("x", (int) this.location.x);
+		location.put("y", (int) this.location.y);
+		tank.put("location", location);
+		JSONObject bullets = new JSONObject();
+		for (int i = 0; i < this.bullets.size(); i++) {
+			if (this.bullets.get(i) != null) {
+				JSONObject bullet = new JSONObject();
+				bullet.put("x", (int) this.bullets.get(i).getX());
+				bullet.put("y", (int) this.bullets.get(i).getY());
+				bullets.put("bullet" + i, bullet);
+			}
+		}
+		tank.put("bullets", bullets);
+		return tank.toString();
+	}
+
+	public void fromJSON(String source) {
+		JSONObject tank = JSONObject.parse(source);
+		this.location.x = tank.getJSONObject("location").getInt("x");
+		this.location.y = tank.getJSONObject("location").getInt("y");
 	}
 
 }
