@@ -33,7 +33,7 @@
     },
     {
       "type": "java",
-      "name": "Launch Game",
+      "name": "Launch Single Player Game",
       "request": "launch",
       "mainClass": "Game",
       "projectName": "TanksFactorial"
