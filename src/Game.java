@@ -43,6 +43,7 @@ public class Game extends PApplet {
 	public void setup() {
 		surface.setTitle("Tanks!");
 		surface.setResizable(true);
+		surface.setIcon(loadImage("./img/icon.png"));
 		cursor(CROSS);
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
