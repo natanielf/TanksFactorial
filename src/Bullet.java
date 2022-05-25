@@ -1,4 +1,5 @@
 import java.io.File;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PVector;
@@ -8,8 +9,8 @@ public class Bullet {
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity, minVelocity;
-	private int size, startFrame, rCount, rLimit, numBlackTiles;
-	private Tile[] blackTiles;
+	private int size, startFrame, rCount, rLimit;
+	private ArrayList<Tile> blackTiles;
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
@@ -60,25 +61,17 @@ public class Bullet {
 	}
 
 	public void createNumBlackTiles() {
-		this.numBlackTiles = 0;
-		int index = 0;
+		blackTiles = new ArrayList<Tile>();
 		Tile[][] grid = arena.getGrid();
 		for (int r = 0; r < grid.length; r++) {
 			for (int c = 0; c < grid[0].length; c++) {
 				if (grid[r][c].getType() == 1) {
-					createBlackTiles(index, grid[r][c]);
-					index++;
-					numBlackTiles++;
+					blackTiles.add(grid[r][c]);
 				}
 			}
 		}
 	}
 	
-	public void createBlackTiles(int index, Tile tile) {
-		blackTiles = new Tile[numBlackTiles];
-		blackTiles[index] = tile;
-	}
-
 	public void bounceX() {
 		velocity.x *= -1;
 		rCount++;
