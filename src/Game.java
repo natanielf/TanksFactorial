@@ -60,8 +60,6 @@ public class Game extends PApplet {
 		player.paint();
 		paintOpponent();
 		hud.paint(player.getAmmo());
-		if (frameCount % (FRAMERATE * 2) == 0)
-			player.replenishAmmo();
 	}
 
 	public void parseArgs(String[] args) {
