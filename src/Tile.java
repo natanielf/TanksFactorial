@@ -43,4 +43,11 @@ public class Tile {
 		return type;
 	}
 
+	public PVector getLocation() {
+		return location;
+	}
+	
+	public int getSize() {
+		return size;
+	}
 }

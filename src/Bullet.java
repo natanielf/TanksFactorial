@@ -46,16 +46,16 @@ public class Bullet {
 		// TODO: Fix the if statement logic
 		// pass in the arena, traverse the arena, check for black tiles, if black, then
 		// bounce!
-
-		if (location.x == 0 || location.x == 1280) {
-			bounceX();
-			deadBullet();
+		if (ifHitBlack(location)) {
+			if (location.x == 0 || location.x == 1280) {
+				bounceX();
+				deadBullet();
+			}
+			if (location.y == 0 || location.y == 720) {
+				bounceY();
+				deadBullet();
+			}
 		}
-		if (location.y == 0 || location.y == 720) {
-			bounceY();
-			deadBullet();
-		}
-
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
 	}
@@ -70,6 +70,18 @@ public class Bullet {
 				}
 			}
 		}
+	}
+	
+	public boolean ifHitBlack(PVector location) {
+		for (int i = 0; i < blackTiles.size(); i++) {
+			if (((int) location.x >= (int) blackTiles.get(i).getLocation().x
+					&& (int) location.x <= (int) blackTiles.get(i).getLocation().x + (int) blackTiles.get(i).getSize())
+				&& ((int) location.y >= (int) blackTiles.get(i).getLocation().y
+					&& (int) location.y <= (int) blackTiles.get(i).getLocation().y + (int) blackTiles.get(i).getSize())) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	public void bounceX() {
