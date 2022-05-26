@@ -21,7 +21,7 @@ public class Client {
 		try {
 			System.out.println("Connecting to " + address + ":" + port + "...");
 			socket = new Socket(address, port);
-			in = new DataInputStream(System.in);
+			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
 			connected = true;
 			System.out.println("Connected to server.");
