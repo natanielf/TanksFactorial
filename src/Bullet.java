@@ -18,7 +18,7 @@ public class Bullet {
 		this.location = new PVector(tankX, tankY);
 		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
 		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
-		this.size = 8;
+		this.size = 4;
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
 		this.rLimit = 2;

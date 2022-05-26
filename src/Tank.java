@@ -106,7 +106,7 @@ public class Tank {
 	}
 
 	public void replenishAmmo() {
-		if (app.frameCount % (Game.FRAMERATE * 2) == 0) {
+		if (app.frameCount % (app.frameRate * 2) == 0) {
 			if (ammo < maxAmmo)
 				ammo++;
 		}

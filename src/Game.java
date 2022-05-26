@@ -28,7 +28,7 @@ public class Game extends PApplet {
 	public Game(String[] args) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 100, 100, 36, arena);
+		this.player = new PlayerTank(this, 100, 100, 18, arena);
 		createSurface();
 		parseArgs(args);
 		parseConfig();
@@ -46,6 +46,7 @@ public class Game extends PApplet {
 		surface.setIcon(loadImage("./img/icon.png"));
 		cursor(CROSS);
 		rectMode(CENTER);
+		ellipseMode(RADIUS);
 		frameRate(FRAMERATE);
 		PFont font = createFont("Arial", 48);
 		textFont(font);
@@ -60,10 +61,6 @@ public class Game extends PApplet {
 		player.paint();
 		paintOpponent();
 		hud.paint(player.getAmmo());
-
-		if (frameCount % (FRAMERATE * 2) == 0)
-			player.replenishAmmo();
-		
 		float yourMother = constrain(player.getX(), arena.MARGIN, arena.width-arena.MARGIN);
 		player.setX(yourMother);
 		handleConnection();
@@ -113,7 +110,7 @@ public class Game extends PApplet {
 
 	public void parseConfig() {
 		if (config.getBoolean("singlePlayer")) {
-			this.opponent = new Tank(this, 1050, 525, 36, arena);
+			this.opponent = new Tank(this, 1050, 525, 18, arena);
 		} else {
 			if (config.getBoolean("server")) {
 				try {
