@@ -8,7 +8,7 @@ public class Bullet {
 
 	private PApplet app;
 	private Arena arena;
-	private PVector location, velocity, minVelocity;
+	private PVector location, velocity;
 	private int size, startFrame, rCount, rLimit;
 	private ArrayList<Tile> blackTiles;
 
@@ -17,7 +17,6 @@ public class Bullet {
 		this.arena = new Arena(app, 1280, 720, new File("./maps/test.txt"));
 		this.location = new PVector(tankX, tankY);
 		this.velocity = new PVector((mouseX - tankX) / 50, (mouseY - tankY) / 50);
-		this.minVelocity = new PVector(velocity.x / 10, velocity.y / 10);
 		this.size = 4;
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
@@ -29,17 +28,10 @@ public class Bullet {
 		this(app, tankX, tankY, mouseX, mouseY);
 		if (!variableSpeed) {
 			this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
-			this.minVelocity = velocity;
 		}
 	}
 
 	public void paint() {
-		if (app.frameCount % 10 == 0) {
-			if (velocity.x > minVelocity.x)
-				velocity.x -= velocity.x / 100;
-			if (velocity.y > minVelocity.y)
-				velocity.y -= velocity.y / 100;
-		}
 		location.x += velocity.x;
 		location.y += velocity.y;
 		if (collideLeft(location) == true || collideRight(location) == true) {
@@ -50,7 +42,7 @@ public class Bullet {
 			bounceY();
 			deadBullet();
 		}
-		app.fill(0, 0, 0);
+		app.fill(0);
 		app.ellipse(location.x, location.y, size, size);
 	}
 
@@ -65,7 +57,7 @@ public class Bullet {
 			}
 		}
 	}
-	
+
 	public boolean collideLeft(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
@@ -79,7 +71,7 @@ public class Bullet {
 		}
 		return false;
 	}
-	
+
 	public boolean collideRight(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;

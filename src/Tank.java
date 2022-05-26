@@ -62,10 +62,8 @@ public class Tank {
 	public int getAmmo() {
 		return ammo;
 	}
-	
-	PVector pv = new PVector(0,0);
+
 	public void update() {
-		
 		if (!map.collide(location)) {
 			if (velocity.x != 0 && velocity.y != 0) {
 				location.x += velocity.x / Math.sqrt(2);
@@ -106,7 +104,7 @@ public class Tank {
 	}
 
 	public void replenishAmmo() {
-		if (app.frameCount % (app.frameRate * 2) == 0) {
+		if (app.frameCount % (Game.FRAMERATE * 2) == 0) {
 			if (ammo < maxAmmo)
 				ammo++;
 		}

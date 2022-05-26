@@ -59,9 +59,9 @@ public class Game extends PApplet {
 		background(150);
 		arena.paint();
 		player.paint();
-		paintOpponent();
+//		paintOpponent();
 		hud.paint(player.getAmmo());
-		float yourMother = constrain(player.getX(), arena.MARGIN, arena.width-arena.MARGIN);
+		float yourMother = constrain(player.getX(), Arena.MARGIN, arena.width - Arena.MARGIN);
 		player.setX(yourMother);
 		handleConnection();
 	}
