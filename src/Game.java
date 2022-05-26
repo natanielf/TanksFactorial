@@ -12,7 +12,7 @@ public class Game extends PApplet {
 
 	private Arena arena;
 	private HUD hud;
-	private PlayerTank player;
+	private Tank player;
 	private Tank opponent;
 	private JSONObject config;
 	private Server server;
@@ -28,7 +28,7 @@ public class Game extends PApplet {
 	public Game(String[] args) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
-		this.player = new PlayerTank(this, 100, 100, 18, arena);
+		this.player = new Tank(this, 100, 100, 18, arena);
 		createSurface();
 		parseArgs(args);
 		parseConfig();
