@@ -11,6 +11,7 @@ public class Bullet {
 	private PVector location, velocity;
 	private int size, startFrame, rCount, rLimit;
 	private ArrayList<Tile> blackTiles;
+	private Tile targetBlackTile;
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY) {
 		this.app = app;
@@ -22,6 +23,7 @@ public class Bullet {
 		this.rCount = 0;
 		this.rLimit = 2;
 		createNumBlackTiles();
+		this.targetBlackTile = null;
 	}
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
@@ -34,14 +36,31 @@ public class Bullet {
 	public void paint() {
 		location.x += velocity.x;
 		location.y += velocity.y;
-//		if (collideLeft(location) == true || collideRight(location) == true) {
-//			bounceX();
-//			deadBullet();
+//		if (collide(location)) {
+//			if (collideLeft(location) == true || collideRight(location) == true) {
+//				setType(0);
+//			}
+//			if (collideUp(location) == true || collideDown(location) == true) {
+//				setType(1);
+//			}
+//			switch (type) {
+//			case 0:
+//				bounceX();
+//				deadBullet();
+//			case 1:
+//				bounceY();
+//				deadBullet();
+//			}
 //		}
-//		if (collideUp(location) == true || collideDown(location) == true) {
-//			bounceY();
-//			deadBullet();
-//		}
+		getTargetBlackTile(location);
+		if (collideLeft(location) == true || collideRight(location) == true) {
+			bounceX();
+			deadBullet();
+		}
+		if (collideUp(location) == true || collideDown(location) == true) {
+			bounceY();
+			deadBullet();
+		}
 		app.fill(0);
 		app.ellipse(location.x, location.y, size, size);
 	}
@@ -57,17 +76,37 @@ public class Bullet {
 			}
 		}
 	}
-
-	public boolean collideLeft(PVector location) {
+	
+	// TODO: Make it so that getTargetBlackTile method works
+	public void getTargetBlackTile(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
 		for (int i = 0; i < blackTiles.size(); i++) {
 			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
 			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
 			int size = blackTiles.get(i).getSize();
-			if ((x >= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
-				return true;
+			if (true) {
+				targetBlackTile = blackTiles.get(i);
 			}
+		}
+	}
+
+//	public boolean collide(PVector location) {
+//		if (collideLeft(location) == true || collideRight(location) == true || collideUp(location) == true || collideDown(location) == true) {
+//			return true;
+//		} else {
+//			return false;
+//		}
+//	}
+	
+	public boolean collideLeft(PVector location) {
+		int x = (int) location.x;
+		int y = (int) location.y;
+		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
+		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
+		int size = targetBlackTile.getSize();
+		if ((x >= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+			return true;
 		}
 		return false;
 	}
@@ -75,13 +114,11 @@ public class Bullet {
 	public boolean collideRight(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
-		for (int i = 0; i < blackTiles.size(); i++) {
-			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
-			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
-			int size = blackTiles.get(i).getSize();
-			if ((x <= xBlackTilePos + size) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
-				return true;
-			}
+		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
+		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
+		int size = targetBlackTile.getSize();
+		if ((x <= xBlackTilePos + size) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+			return true;
 		}
 		return false;
 	}
@@ -89,13 +126,11 @@ public class Bullet {
 	public boolean collideUp(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
-		for (int i = 0; i < blackTiles.size(); i++) {
-			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
-			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
-			int size = blackTiles.get(i).getSize();
-			if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos)) {
-				return true;
-			}
+		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
+		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
+		int size = targetBlackTile.getSize();
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos)) {
+			return true;
 		}
 		return false;
 	}
@@ -103,13 +138,11 @@ public class Bullet {
 	public boolean collideDown(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
-		for (int i = 0; i < blackTiles.size(); i++) {
-			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
-			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
-			int size = blackTiles.get(i).getSize();
-			if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y <= yBlackTilePos)) {
-				return true;
-			}
+		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
+		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
+		int size = targetBlackTile.getSize();
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y <= yBlackTilePos)) {
+			return true;
 		}
 		return false;
 	}
