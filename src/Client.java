@@ -50,12 +50,22 @@ public class Client {
 		}
 	}
 
-	public void sendData(String tank) {
-
+	public void sendData(String data) {
+		try {
+			out.writeUTF(data);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 
 	public String getData() {
-		return "{}";
+		String data = "{}";
+		try {
+			data = in.readUTF();
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+		return data;
 	}
 
 }

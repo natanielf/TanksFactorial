@@ -1,5 +1,7 @@
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -11,6 +13,7 @@ public class Server {
 	private Socket socket;
 	private ServerSocket server;
 	private DataInputStream in;
+	private DataOutputStream out;
 	private int port;
 	private String hostAddress;
 	private boolean connected;
@@ -28,6 +31,7 @@ public class Server {
 			connected = true;
 			System.out.println("A client connected." + " (" + socket.getInetAddress() + ")");
 			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
+			out = new DataOutputStream(new BufferedOutputStream(socket.getOutputStream()));
 		} catch (IOException e) {
 			System.err.println(e);
 		}
@@ -51,12 +55,22 @@ public class Server {
 		}
 	}
 
-	public void sendData(String tank) {
-
+	public void sendData(String data) {
+		try {
+			out.writeUTF(data);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
 	}
 
 	public String getData() {
-		return "{}";
+		String data = "{}";
+		try {
+			data = in.readUTF();
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+		return data;
 	}
 
 }
