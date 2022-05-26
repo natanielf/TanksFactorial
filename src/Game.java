@@ -14,8 +14,6 @@ public class Game extends PApplet {
 	private HUD hud;
 	private PlayerTank player;
 	private Tank opponent;
-	private boolean singlePlayer;
-	private int aimX, aimY;
 	private JSONObject config;
 	private Server server;
 	private Client client;
@@ -31,9 +29,9 @@ public class Game extends PApplet {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new PlayerTank(this, 100, 100, 36, arena);
+		createSurface();
 		parseArgs(args);
 		parseConfig();
-		createSurface();
 	}
 
 	@Override
@@ -45,6 +43,7 @@ public class Game extends PApplet {
 	public void setup() {
 		surface.setTitle("Tanks!");
 		surface.setResizable(true);
+		surface.setIcon(loadImage("./img/icon.png"));
 		cursor(CROSS);
 		rectMode(CENTER);
 		frameRate(FRAMERATE);
@@ -59,36 +58,54 @@ public class Game extends PApplet {
 		background(150);
 		arena.paint();
 		player.paint();
-		if (opponent != null) {
-			opponent.paint();
-		}
+		paintOpponent();
 		hud.paint(player.getAmmo());
+
 		if (frameCount % (FRAMERATE * 2) == 0)
 			player.replenishAmmo();
 		
 		float yourMother = constrain(player.getX(), arena.MARGIN, arena.width-arena.MARGIN);
 		player.setX(yourMother);
+		handleConnection();
+	}
+
+	public void handleConnection() {
+		if (!config.getBoolean("singlePlayer")) {
+			if (frameCount % frameRate == 0) {
+				if (config.getBoolean("server")) {
+					opponent.fromJSON(server.getData());
+					server.sendData(player.toJSON());
+				} else {
+					opponent.fromJSON(client.getData());
+					client.sendData(player.toJSON());
+				}
+			}
+		}
+
 	}
 
 	public void parseArgs(String[] args) {
 		this.config = new JSONObject();
 		for (String arg : args) {
-			if (arg.equals("--single")) {
-				config.put("singlePlayer", true);
-			}
-			if (arg.equals("--server")) {
-				config.put("singlePlayer", false);
-				config.put("server", true);
-			}
-			if (arg.equals("--client")) {
-				config.put("singlePlayer", false);
-				config.put("server", false);
-			}
-			if (arg.contains(".")) {
-				config.put("address", arg);
+			switch (arg) {
+				case "--single":
+					config.put("singlePlayer", true);
+					break;
+				case "--server":
+					config.put("singlePlayer", false);
+					config.put("server", true);
+					break;
+				case "--client":
+					config.put("singlePlayer", false);
+					config.put("server", false);
+					break;
+				default:
+					if (arg.contains("."))
+						config.put("address", arg);
+					break;
 			}
 		}
-		// Default to single player games if no arguments are provided
+		// Default to a single player game if no arguments are provided
 		if (!config.hasKey("singlePlayer")) {
 			config.put("singlePlayer", true);
 		}
@@ -102,15 +119,22 @@ public class Game extends PApplet {
 				try {
 					this.server = new Server(80);
 				} catch (UnknownHostException e) {
-					e.printStackTrace();
+					System.err.println(e);
 				}
 			} else {
 				try {
 					this.client = new Client(config.getString("address"), 80);
 				} catch (IOException e) {
-					e.printStackTrace();
+					System.err.println(e);
 				}
 			}
+			this.opponent = new Tank(this, 1050, 525, 36, arena);
+		}
+	}
+
+	public void paintOpponent() {
+		if (opponent != null) {
+			opponent.paint();
 		}
 	}
 
@@ -126,18 +150,18 @@ public class Game extends PApplet {
 	public void keyPressed() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.moveNorth();
-				break;
-			case 'A':
-				player.moveWest();
-				break;
-			case 'S':
-				player.moveSouth();
-				break;
-			case 'D':
-				player.moveEast();
-				break;
+				case 'W':
+					player.moveNorth();
+					break;
+				case 'A':
+					player.moveWest();
+					break;
+				case 'S':
+					player.moveSouth();
+					break;
+				case 'D':
+					player.moveEast();
+					break;
 			}
 		}
 	}
@@ -149,41 +173,22 @@ public class Game extends PApplet {
 		}
 	}
 
-	// Updates the aim-line to go towards the cursor
-	public void updateAim(int n) {
-		if (mouseX - 10 >= aimX)
-			aimX += n;
-		else if (mouseX + 10 <= aimX)
-			aimX -= n;
-
-		if (mouseY - 10 >= aimY)
-			aimY += n;
-		else if (mouseY + 10 <= aimY)
-			aimY -= n;
-
-		if (Math.abs(mouseX - aimX) < 10)
-			aimX = mouseX;
-		if (Math.abs(mouseY - aimY) < 10)
-			aimY = mouseY;
-
-	}
-
 	@Override
 	public void keyReleased() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-			case 'W':
-				player.stopY();
-				break;
-			case 'A':
-				player.stopX();
-				break;
-			case 'S':
-				player.stopY();
-				break;
-			case 'D':
-				player.stopX();
-				break;
+				case 'W':
+					player.stopY();
+					break;
+				case 'A':
+					player.stopX();
+					break;
+				case 'S':
+					player.stopY();
+					break;
+				case 'D':
+					player.stopX();
+					break;
 			}
 		}
 	}

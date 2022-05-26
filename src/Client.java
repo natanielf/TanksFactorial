@@ -21,7 +21,7 @@ public class Client {
 		try {
 			System.out.println("Connecting to " + address + ":" + port + "...");
 			socket = new Socket(address, port);
-			in = new DataInputStream(System.in);
+			in = new DataInputStream(socket.getInputStream());
 			out = new DataOutputStream(socket.getOutputStream());
 			connected = true;
 			System.out.println("Connected to server.");
@@ -30,24 +30,42 @@ public class Client {
 		} catch (IOException e) {
 			System.err.println(e);
 		}
+	}
 
-		// TODO: Event loop logic for client
+	public static void main(String[] args) throws IOException {
+		new Client("127.0.0.1", 80);
+	}
 
+	public void disconnect() {
 		if (connected) {
 			try {
 				in.close();
 				out.close();
 				socket.close();
 				connected = false;
+				System.out.println("Disconnected from the server.");
 			} catch (IOException e) {
 				System.err.println(e);
 			}
 		}
-
 	}
 
-	public static void main(String[] args) throws IOException {
-		new Client("127.0.0.1", 80);
+	public void sendData(String data) {
+		try {
+			out.writeUTF(data);
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+	}
+
+	public String getData() {
+		String data = "{}";
+		try {
+			data = in.readUTF();
+		} catch (IOException e) {
+			System.err.println(e);
+		}
+		return data;
 	}
 
 }

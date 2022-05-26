@@ -5,7 +5,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-	
+
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity, minVelocity;
@@ -42,20 +42,14 @@ public class Bullet {
 		}
 		location.x += velocity.x;
 		location.y += velocity.y;
-
-		// TODO: Fix the if statement logic
-		// pass in the arena, traverse the arena, check for black tiles, if black, then
-		// bounce!
-
-		if (location.x == 0 || location.x == 1280) {
+		if (collideLeft(location) == true || collideRight(location) == true) {
 			bounceX();
 			deadBullet();
 		}
-		if (location.y == 0 || location.y == 720) {
+		if (collideUp(location) == true || collideDown(location) == true) {
 			bounceY();
 			deadBullet();
 		}
-
 		app.fill(0, 0, 0);
 		app.ellipse(location.x, location.y, size, size);
 	}
@@ -72,6 +66,62 @@ public class Bullet {
 		}
 	}
 	
+	public boolean collideLeft(PVector location) {
+		int x = (int) location.x;
+		int y = (int) location.y;
+		for (int i = 0; i < blackTiles.size(); i++) {
+			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
+			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
+			int size = blackTiles.get(i).getSize();
+			if ((x >= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public boolean collideRight(PVector location) {
+		int x = (int) location.x;
+		int y = (int) location.y;
+		for (int i = 0; i < blackTiles.size(); i++) {
+			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
+			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
+			int size = blackTiles.get(i).getSize();
+			if ((x <= xBlackTilePos + size) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean collideUp(PVector location) {
+		int x = (int) location.x;
+		int y = (int) location.y;
+		for (int i = 0; i < blackTiles.size(); i++) {
+			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
+			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
+			int size = blackTiles.get(i).getSize();
+			if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean collideDown(PVector location) {
+		int x = (int) location.x;
+		int y = (int) location.y;
+		for (int i = 0; i < blackTiles.size(); i++) {
+			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
+			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
+			int size = blackTiles.get(i).getSize();
+			if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y <= yBlackTilePos)) {
+				return true;
+			}
+		}
+		return false;
+	}
+
 	public void bounceX() {
 		velocity.x *= -1;
 		rCount++;
@@ -89,6 +139,14 @@ public class Bullet {
 
 	public int getStartFrame() {
 		return this.startFrame;
+	}
+
+	public int getX() {
+		return (int) location.x;
+	}
+
+	public int getY() {
+		return (int) location.y;
 	}
 
 }
