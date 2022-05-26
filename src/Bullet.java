@@ -34,14 +34,14 @@ public class Bullet {
 	public void paint() {
 		location.x += velocity.x;
 		location.y += velocity.y;
-		if (collideLeft(location) == true || collideRight(location) == true) {
-			bounceX();
-			deadBullet();
-		}
-		if (collideUp(location) == true || collideDown(location) == true) {
-			bounceY();
-			deadBullet();
-		}
+//		if (collideLeft(location) == true || collideRight(location) == true) {
+//			bounceX();
+//			deadBullet();
+//		}
+//		if (collideUp(location) == true || collideDown(location) == true) {
+//			bounceY();
+//			deadBullet();
+//		}
 		app.fill(0);
 		app.ellipse(location.x, location.y, size, size);
 	}

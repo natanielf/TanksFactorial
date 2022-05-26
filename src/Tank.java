@@ -64,6 +64,8 @@ public class Tank {
 	}
 
 	public void update() {
+		location.x = PApplet.constrain(location.x, Arena.MARGIN + 2, map.getWidth() - Arena.MARGIN);
+		location.y = PApplet.constrain(location.y, Arena.MARGIN + 2, map.getHeight() - Arena.MARGIN);
 		if (!map.collide(location)) {
 			if (velocity.x != 0 && velocity.y != 0) {
 				location.x += velocity.x / Math.sqrt(2);
@@ -90,7 +92,7 @@ public class Tank {
 		app.ellipse(location.x, location.y, size, size);
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
-			if (b.getStartFrame() < app.frameCount - (app.frameRate * 8))
+			if (b.getStartFrame() < app.frameCount - (Game.FRAMERATE * 8))
 				bullets.remove(i);
 		}
 		for (Bullet b : bullets) {
@@ -142,6 +144,10 @@ public class Tank {
 	
 	public void setX(float x) {
 		location.x = x;
+	}
+
+	public void setY(float y) {
+		location.y = y;
 	}
 
 }

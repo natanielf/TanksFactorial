@@ -10,7 +10,7 @@ public class Arena {
 
 	private Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
-	protected ArrayList<Tile> walls;		//used in textFileInput() and Collision()
+	protected ArrayList<Tile> walls; //used in textFileInput() and Collision()
 	private PApplet app;
 	protected static final int MARGIN = 30;
 
