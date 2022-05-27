@@ -125,6 +125,8 @@ public class Tank {
 				bullet.put("x", (int) this.bullets.get(i).getX());
 				bullet.put("y", (int) this.bullets.get(i).getY());
 				bullets.put("bullet" + i, bullet);
+			} else {
+				bullets.remove("bullet" + i);
 			}
 		}
 		tank.put("bullets", bullets);
@@ -132,16 +134,15 @@ public class Tank {
 	}
 
 	public void fromJSON(String source) {
-		JSONObject tank = JSONObject.parse(source);
-		if (tank.size() == 0) {
+		if (source == null || source.length() == 0)
 			return;
-		}
+		JSONObject tank = JSONObject.parse(source);
 		if (tank.hasKey("location")) {
 			this.location.x = tank.getJSONObject("location").getInt("x");
 			this.location.y = tank.getJSONObject("location").getInt("y");
 		}
 	}
-	
+
 	public void setX(float x) {
 		location.x = x;
 	}
