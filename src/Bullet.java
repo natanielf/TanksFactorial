@@ -25,13 +25,7 @@ public class Bullet {
 		this.type = 0;
 		createNumBlackTiles();
 		this.targetBlackTile = blackTiles.get(0);
-	}
-
-	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
-		this(app, tankX, tankY, mouseX, mouseY);
-		if (!variableSpeed) {
-			this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
-		}
+		this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
 	}
 
 	public void paint() {
@@ -39,6 +33,7 @@ public class Bullet {
 		location.y += velocity.y;
 		getTargetBlackTile(location);
 		if (collide(location) == true) {
+			
 			if (collideLeft(location) == true || collideRight(location) == true) {
 				setType(0);
 			}
