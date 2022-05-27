@@ -36,22 +36,22 @@ public class Bullet {
 	public void paint() {
 		location.x += velocity.x;
 		location.y += velocity.y;
-//		if (collide(location)) {
-//			if (collideLeft(location) == true || collideRight(location) == true) {
-//				setType(0);
-//			}
-//			if (collideUp(location) == true || collideDown(location) == true) {
-//				setType(1);
-//			}
-//			switch (type) {
-//			case 0:
-//				bounceX();
-//				deadBullet();
-//			case 1:
-//				bounceY();
-//				deadBullet();
-//			}
-//		}
+		// if (collide(location)) {
+		// if (collideLeft(location) == true || collideRight(location) == true) {
+		// setType(0);
+		// }
+		// if (collideUp(location) == true || collideDown(location) == true) {
+		// setType(1);
+		// }
+		// switch (type) {
+		// case 0:
+		// bounceX();
+		// deadBullet();
+		// case 1:
+		// bounceY();
+		// deadBullet();
+		// }
+		// }
 		getTargetBlackTile(location);
 		if (collideLeft(location) == true || collideRight(location) == true) {
 			bounceX();
@@ -76,7 +76,7 @@ public class Bullet {
 			}
 		}
 	}
-	
+
 	// TODO: Make it so that getTargetBlackTile method works
 	public void getTargetBlackTile(PVector location) {
 		int x = (int) location.x;
@@ -91,14 +91,15 @@ public class Bullet {
 		}
 	}
 
-//	public boolean collide(PVector location) {
-//		if (collideLeft(location) == true || collideRight(location) == true || collideUp(location) == true || collideDown(location) == true) {
-//			return true;
-//		} else {
-//			return false;
-//		}
-//	}
-	
+	// public boolean collide(PVector location) {
+	// if (collideLeft(location) == true || collideRight(location) == true ||
+	// collideUp(location) == true || collideDown(location) == true) {
+	// return true;
+	// } else {
+	// return false;
+	// }
+	// }
+
 	public boolean collideLeft(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
@@ -170,8 +171,16 @@ public class Bullet {
 		return (int) location.x;
 	}
 
+	public void setX(int x) {
+		location.x = x;
+	}
+
 	public int getY() {
 		return (int) location.y;
+	}
+
+	public void setY(int y) {
+		location.y = y;
 	}
 
 }

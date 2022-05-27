@@ -141,6 +141,18 @@ public class Tank {
 			this.location.x = tank.getJSONObject("location").getInt("x");
 			this.location.y = tank.getJSONObject("location").getInt("y");
 		}
+		if (tank.hasKey("bullets")) {
+			JSONObject bullets = tank.getJSONObject("bullets");
+			for (int i = 0; i < maxAmmo; i++) {
+				if (bullets.hasKey("bullet" + i)) {
+					int x = bullets.getJSONObject("bullet" + i).getInt("x");
+					int y = bullets.getJSONObject("bullet" + i).getInt("y");
+					Bullet b = this.bullets.get(i);
+					b.setX(x);
+					b.setY(y);
+				}
+			}
+		}
 	}
 
 	public void setX(float x) {
