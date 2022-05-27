@@ -66,12 +66,12 @@ public class Game extends PApplet {
 
 	public void handleConnection() {
 		if (!config.getBoolean("singlePlayer")) {
-			if (frameCount % frameRate == 0) {
+			if (frameCount % (FRAMERATE / 2) == 0) {
 				if (config.getBoolean("server")) {
-					opponent.fromJSON(server.getData());
+					// opponent.fromJSON(server.getData());
 					server.sendData(player.toJSON());
 				} else {
-					opponent.fromJSON(client.getData());
+					// opponent.fromJSON(client.getData());
 					client.sendData(player.toJSON());
 				}
 			}

@@ -1,3 +1,4 @@
+import java.io.BufferedInputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
@@ -28,7 +29,7 @@ public class Server {
 			socket = server.accept();
 			connected = true;
 			System.out.println("A client connected." + " (" + socket.getInetAddress() + ")");
-			in = new DataInputStream(socket.getInputStream());
+			in = new DataInputStream(new BufferedInputStream(socket.getInputStream()));
 			out = new DataOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
 			System.err.println(e);
@@ -65,6 +66,7 @@ public class Server {
 		String data = "{}";
 		try {
 			data = in.readUTF();
+			System.out.println(data);
 		} catch (IOException e) {
 			System.err.println(e);
 		}
