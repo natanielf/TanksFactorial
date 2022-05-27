@@ -38,7 +38,7 @@ public class Bullet {
 		location.x += velocity.x;
 		location.y += velocity.y;
 		getTargetBlackTile(location);
-		if (collide(location)) {
+		if (collide(location) == true) {
 			if (collideLeft(location) == true || collideRight(location) == true) {
 				setType(0);
 			}
