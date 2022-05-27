@@ -27,7 +27,7 @@ public class Game extends PApplet {
 
 	public Game(String[] args) {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
-		this.hud = new HUD(this, 1600, 200, FRAMEWIDTH, FRAMEHEIGHT);
+		this.hud = new HUD(this, 1400, 150, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new Tank(this, 100, 100, 18, arena);
 		createSurface();
 		parseArgs(args);
@@ -45,7 +45,7 @@ public class Game extends PApplet {
 		surface.setResizable(true);
 		surface.setIcon(loadImage("./img/icon.png"));
 		cursor(CROSS);
-		rectMode(CENTER);
+		rectMode(CORNER);
 		ellipseMode(RADIUS);
 		frameRate(FRAMERATE);
 		PFont font = createFont("Arial", 48);

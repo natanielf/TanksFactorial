@@ -15,7 +15,7 @@ public class HUD {
 
 	public void paint(int ammo) {
 		app.fill(0, 0, 0);
-		app.rect(x, y, w, h);
+		app.rect(x - (w / 2), y - (h / 2), w, h);
 		app.fill(255, 255, 255);
 		app.text("AMMO: " + ammo, x, y);
 	}
