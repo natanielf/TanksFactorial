@@ -9,7 +9,7 @@ public class Bullet {
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity;
-	private int size, startFrame, rCount, rLimit;
+	private int size, startFrame, rCount, rLimit, type;
 	private ArrayList<Tile> blackTiles;
 	private Tile targetBlackTile;
 
@@ -22,8 +22,9 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
 		this.rLimit = 2;
+		this.type = 0;
 		createNumBlackTiles();
-		this.targetBlackTile = null;
+		this.targetBlackTile = blackTiles.get(0);
 	}
 
 	public Bullet(PApplet app, int tankX, int tankY, int mouseX, int mouseY, boolean variableSpeed) {
@@ -36,31 +37,32 @@ public class Bullet {
 	public void paint() {
 		location.x += velocity.x;
 		location.y += velocity.y;
-		// if (collide(location)) {
-		// if (collideLeft(location) == true || collideRight(location) == true) {
-		// setType(0);
-		// }
-		// if (collideUp(location) == true || collideDown(location) == true) {
-		// setType(1);
-		// }
-		// switch (type) {
-		// case 0:
-		// bounceX();
-		// deadBullet();
-		// case 1:
-		// bounceY();
-		// deadBullet();
-		// }
-		// }
 		getTargetBlackTile(location);
-		if (collideLeft(location) == true || collideRight(location) == true) {
-			bounceX();
-			deadBullet();
+		if (collide(location)) {
+			if (collideLeft(location) == true || collideRight(location) == true) {
+				setType(0);
+			}
+			if (collideUp(location) == true || collideDown(location) == true) {
+				setType(1);
+			}
+			switch (type) {
+			case 0:
+				deadBullet();
+				bounceX();
+			case 1:
+				deadBullet();
+				bounceY();
+			}
 		}
-		if (collideUp(location) == true || collideDown(location) == true) {
-			bounceY();
-			deadBullet();
-		}
+//		getTargetBlackTile(location);
+//		if (collideLeft(location) == true || collideRight(location) == true) {
+//			bounceX();
+//			deadBullet();
+//		}
+//		if (collideUp(location) == true || collideDown(location) == true) {
+//			bounceY();
+//			deadBullet();
+//		}
 		app.fill(0);
 		app.ellipse(location.x, location.y, size, size);
 	}
@@ -77,28 +79,33 @@ public class Bullet {
 		}
 	}
 
+	public boolean collide(PVector location) {
+		if (collideLeft(location) == true
+				|| collideRight(location) == true
+				|| collideUp(location) == true
+				|| collideDown(location) == true) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	
 	// TODO: Make it so that getTargetBlackTile method works
 	public void getTargetBlackTile(PVector location) {
 		int x = (int) location.x;
 		int y = (int) location.y;
+		Tile pTargetBlackTile = blackTiles.get(0);
 		for (int i = 0; i < blackTiles.size(); i++) {
 			int xBlackTilePos = (int) blackTiles.get(i).getLocation().x;
 			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
 			int size = blackTiles.get(i).getSize();
-			if (true) {
-				targetBlackTile = blackTiles.get(i);
+			if ((x >= xBlackTilePos && x <= xBlackTilePos + size)
+					&& (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+				pTargetBlackTile = blackTiles.get(i);
 			}
 		}
+		this.targetBlackTile = pTargetBlackTile;
 	}
-
-	// public boolean collide(PVector location) {
-	// if (collideLeft(location) == true || collideRight(location) == true ||
-	// collideUp(location) == true || collideDown(location) == true) {
-	// return true;
-	// } else {
-	// return false;
-	// }
-	// }
 
 	public boolean collideLeft(PVector location) {
 		int x = (int) location.x;
@@ -118,7 +125,7 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x <= xBlackTilePos + size) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+		if ((x <= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
 			return true;
 		}
 		return false;
@@ -181,6 +188,10 @@ public class Bullet {
 
 	public void setY(int y) {
 		location.y = y;
+	}
+
+	public void setType(int type) {
+		this.type = type;
 	}
 
 }
