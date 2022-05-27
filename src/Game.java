@@ -67,7 +67,7 @@ public class Game extends PApplet {
 	public void handleConnection() {
 		if (!config.getBoolean("singlePlayer")) {
 			if (config.getBoolean("server")) {
-				opponent.fromJSON(server.getData());
+				// opponent.fromJSON(server.getData());
 				server.sendData(player.toJSON());
 			} else {
 				opponent.fromJSON(client.getData());

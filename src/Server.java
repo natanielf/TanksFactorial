@@ -66,7 +66,6 @@ public class Server {
 		String data = "{}";
 		try {
 			data = in.readUTF();
-			System.out.println(data);
 		} catch (IOException e) {
 			System.err.println(e);
 		}
