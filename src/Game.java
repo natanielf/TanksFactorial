@@ -66,14 +66,12 @@ public class Game extends PApplet {
 
 	public void handleConnection() {
 		if (!config.getBoolean("singlePlayer")) {
-			if (frameCount % (FRAMERATE / 2) == 0) {
-				if (config.getBoolean("server")) {
-					// opponent.fromJSON(server.getData());
-					server.sendData(player.toJSON());
-				} else {
-					// opponent.fromJSON(client.getData());
-					client.sendData(player.toJSON());
-				}
+			if (config.getBoolean("server")) {
+				opponent.fromJSON(server.getData());
+				server.sendData(player.toJSON());
+			} else {
+				opponent.fromJSON(client.getData());
+				client.sendData(player.toJSON());
 			}
 		}
 
@@ -123,7 +121,7 @@ public class Game extends PApplet {
 					System.err.println(e);
 				}
 			}
-			this.opponent = new Tank(this, 1050, 525, 36, arena);
+			this.opponent = new Tank(this, 1050, 525, 18, arena);
 		}
 	}
 
