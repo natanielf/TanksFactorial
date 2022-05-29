@@ -6,11 +6,10 @@ import processing.core.PVector;
 
 public class Bullet {
 	
-	// TODO: FIX SET TYPE METHODS
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity;
-	private int size, startFrame, rCount, rLimit, type;
+	private int size, startFrame, rCount, rLimit, type, moe;
 	private ArrayList<Tile> blackTiles;
 	private Tile targetBlackTile;
 
@@ -24,6 +23,7 @@ public class Bullet {
 		this.rCount = 0;
 		this.rLimit = 2;
 		this.type = 0;
+		this.moe = 7;
 		createNumBlackTiles();
 		createTargetBlackTile();
 		this.velocity = new PVector(mouseX - tankX, mouseY - tankY).normalize().mult(8);
@@ -36,30 +36,18 @@ public class Bullet {
 		if (this.targetBlackTile != null && collide() == true) {
 			if (collideLeft() == true || collideRight() == true) {
 				setType(1);
-			}
-			if (collideUp() == true || collideDown() == true) {
+			} else if (collideUp() == true || collideDown() == true) {
 				setType(2);
 			}
-			switch (type) {
-			case 0:
-				
-			case 1:
-				deadBullet();
+			if (type == 1) {
 				bounceX();
-			case 2:
 				deadBullet();
+			}
+			if (type == 2) {
 				bounceY();
+				deadBullet();
 			}
 		}
-//		getTargetBlackTile(location);
-//		if (collideLeft(location) == true || collideRight(location) == true) {
-//			bounceX();
-//			deadBullet();
-//		}
-//		if (collideUp(location) == true || collideDown(location) == true) {
-//			bounceY();
-//			deadBullet();
-//		}
 		app.fill(0);
 		app.ellipse(location.x, location.y, size, size);
 	}
@@ -106,7 +94,7 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
+		if ((x >= xBlackTilePos - this.moe && x <= xBlackTilePos + this.moe) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
 			return true;
 		else
 			return false;
@@ -118,7 +106,7 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x <= xBlackTilePos) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
+		if ((x >= xBlackTilePos + size - this.moe && x <= xBlackTilePos + size + this.moe) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
 			return true;
 		else
 			return false;
@@ -130,7 +118,7 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos))
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos - this.moe && y <= yBlackTilePos + this.moe))
 			return true;
 		else
 			return false;
@@ -142,7 +130,7 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y <= yBlackTilePos))
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos + size - this.moe && y <= yBlackTilePos + size + this.moe))
 			return true;
 		else
 			return false;
