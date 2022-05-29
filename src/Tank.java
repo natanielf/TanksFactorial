@@ -19,7 +19,7 @@ public class Tank {
 		this.velocity = new PVector(0, 0);
 		this.maxAmmo = 5;
 		this.ammo = maxAmmo;
-		speed = 6;
+		speed = 3;
 		size = s;
 		bullets = new ArrayList<>();
 		this.map = map;

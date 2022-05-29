@@ -34,18 +34,21 @@ public class Bullet {
 		location.y += velocity.y;
 		createTargetBlackTile();
 		if (this.targetBlackTile != null && collide() == true) {
-			if (collideLeft() == true || collideRight() == true) {
+			if (collideLeft() == true || collideRight() == true)
 				setType(1);
-			} else if (collideUp() == true || collideDown() == true) {
+			else if (collideUp() == true || collideDown() == true)
 				setType(2);
-			}
-			if (type == 1) {
+			switch (type) {
+			case 0:
+				break;
+			case 1:
 				bounceX();
 				deadBullet();
-			}
-			if (type == 2) {
+				break;
+			case 2:
 				bounceY();
 				deadBullet();
+				break;
 			}
 		}
 		app.fill(0);
@@ -57,15 +60,17 @@ public class Bullet {
 		Tile[][] grid = arena.getGrid();
 		for (int r = 0; r < grid.length; r++) {
 			for (int c = 0; c < grid[0].length; c++) {
-				if (grid[r][c].getType() == 1) {
+				if (grid[r][c].getType() == 1)
 					blackTiles.add(grid[r][c]);
-				}
 			}
 		}
 	}
 
 	public boolean collide() {
-		if (collideLeft() == true || collideRight() == true || collideUp() == true || collideDown() == true)
+		if (collideLeft() == true
+				|| collideRight() == true
+				|| collideUp() == true
+				|| collideDown() == true)
 			return true;
 		else
 			return false;
@@ -81,9 +86,8 @@ public class Bullet {
 			int yBlackTilePos = (int) blackTiles.get(i).getLocation().y;
 			int size = blackTiles.get(i).getSize();
 			if ((x >= xBlackTilePos && x <= xBlackTilePos + size)
-					&& (y >= yBlackTilePos && y <= yBlackTilePos + size)) {
+					&& (y >= yBlackTilePos && y <= yBlackTilePos + size))
 				pTargetBlackTile = blackTiles.get(i);
-			}
 		}
 		this.targetBlackTile = pTargetBlackTile;
 	}
@@ -94,7 +98,8 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos - this.moe && x <= xBlackTilePos + this.moe) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
+		if ((x >= xBlackTilePos - this.moe && x <= xBlackTilePos + this.moe)
+				&& (y >= yBlackTilePos && y <= yBlackTilePos + size))
 			return true;
 		else
 			return false;
@@ -106,7 +111,8 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos + size - this.moe && x <= xBlackTilePos + size + this.moe) && (y >= yBlackTilePos && y <= yBlackTilePos + size))
+		if ((x >= xBlackTilePos + size - this.moe && x <= xBlackTilePos + size + this.moe)
+				&& (y >= yBlackTilePos && y <= yBlackTilePos + size))
 			return true;
 		else
 			return false;
@@ -118,7 +124,8 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos - this.moe && y <= yBlackTilePos + this.moe))
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size)
+				&& (y >= yBlackTilePos - this.moe && y <= yBlackTilePos + this.moe))
 			return true;
 		else
 			return false;
@@ -130,7 +137,8 @@ public class Bullet {
 		int xBlackTilePos = (int) targetBlackTile.getLocation().x;
 		int yBlackTilePos = (int) targetBlackTile.getLocation().y;
 		int size = targetBlackTile.getSize();
-		if ((x >= xBlackTilePos && x <= xBlackTilePos + size) && (y >= yBlackTilePos + size - this.moe && y <= yBlackTilePos + size + this.moe))
+		if ((x >= xBlackTilePos && x <= xBlackTilePos + size)
+				&& (y >= yBlackTilePos + size - this.moe && y <= yBlackTilePos + size + this.moe))
 			return true;
 		else
 			return false;
@@ -147,8 +155,11 @@ public class Bullet {
 	}
 
 	public void deadBullet() {
-		if (rCount >= rLimit)
+		if (rCount >= rLimit) {
 			location.x = 6000;
+			velocity.x = 0;
+			velocity.y = 0;
+		}
 	}
 
 	public int getStartFrame() {
