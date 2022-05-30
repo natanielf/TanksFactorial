@@ -8,10 +8,13 @@ public class Tank {
 
 	protected PApplet app;
 	protected PVector location, velocity;
-	protected int ammo, maxAmmo, speed, size;
+	protected int ammo, maxAmmo, speed, size, type;
 	protected ArrayList<Bullet> bullets;
 
 	private Arena map;
+	private ArrayList<Tile> walls;
+	private Tile targetBlackTile;
+
 
 	public Tank(PApplet app, int x, int y, int s, Arena map) {
 		this.app = app;
@@ -19,15 +22,33 @@ public class Tank {
 		this.velocity = new PVector(0, 0);
 		this.maxAmmo = 5;
 		this.ammo = maxAmmo;
-		speed = 3;
-		size = s;
+		this.speed = 6;
+		this.size = s;
+		this.type = 0;
 		bullets = new ArrayList<>();
 		this.map = map;
+		walls = this.map.getWalls();
+		createTargetBlackTile();
+	}
+	
+	public void createTargetBlackTile() {
+		this.targetBlackTile = null;
+		float x = location.x;
+		float y = location.y;
+		Tile pTargetBlackTile = null;
+		for (int i = 0; i < walls.size(); i++) {
+			float xBlackTilePos = walls.get(i).getX();
+			float yBlackTilePos = walls.get(i).getY();
+			int wSize = walls.get(i).getSize();
+			if ((x + size >= xBlackTilePos && x - size <= xBlackTilePos + wSize)
+			&& (y + size >= yBlackTilePos && y - size <= yBlackTilePos + wSize))
+				pTargetBlackTile = walls.get(i);
+		}
+		this.targetBlackTile = pTargetBlackTile;
 	}
 
 	public void moveEast() {
 		velocity.x = speed;
-
 	}
 
 	public void moveWest() {
@@ -36,7 +57,6 @@ public class Tank {
 
 	public void moveNorth() {
 		velocity.y = -speed;
-
 	}
 
 	public void moveSouth() {
@@ -66,7 +86,7 @@ public class Tank {
 	public void update() {
 		location.x = PApplet.constrain(location.x, Arena.MARGIN + 2, map.getWidth() - Arena.MARGIN);
 		location.y = PApplet.constrain(location.y, Arena.MARGIN + 2, map.getHeight() - Arena.MARGIN);
-		if (!map.collide(location)) {
+		if (!map.collide(location, size)) {
 			if (velocity.x != 0 && velocity.y != 0) {
 				location.x += velocity.x / Math.sqrt(2);
 				location.y += velocity.y / Math.sqrt(2);
@@ -75,7 +95,25 @@ public class Tank {
 				location.y += velocity.y;
 			}
 		} else
-			System.out.println("I'd Better Call Saul!");
+			createTargetBlackTile();
+			if (this.targetBlackTile != null) {
+				if (map.collideLeft(location, size) == true
+						|| map.collideRight(location, size) == true)
+					setTankColType(1);
+				else if (map.collideUp(location, size) == true
+						|| map.collideDown(location, size) == true)
+					setTankColType(2);
+				switch(type) {
+				case 0:
+					break;
+				case 1:
+					location.x = PApplet.constrain(location.x, targetBlackTile.getX(), targetBlackTile.getX() + targetBlackTile.getSize());
+					break;
+				case 2:
+					location.y = PApplet.constrain(location.y, targetBlackTile.getY(), targetBlackTile.getY() + targetBlackTile.getSize());
+					break;
+				}
+			}
 	}
 
 	public void shoot(int mX, int mY) {
@@ -155,6 +193,10 @@ public class Tank {
 		// }
 	}
 
+	public void setTankColType(int type) {
+		this.type = type;
+	}
+	
 	public void setX(float x) {
 		location.x = x;
 	}

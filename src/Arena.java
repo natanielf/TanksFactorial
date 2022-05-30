@@ -10,7 +10,7 @@ public class Arena {
 
 	private Tile[][] grid;
 	protected int width, height, rows, cols, tileSize, tileSpacer;
-	protected ArrayList<Tile> walls; //used in textFileInput() and Collision()
+	protected ArrayList<Tile> walls; // used in textFileInput() and Collision()
 	private PApplet app;
 	protected static final int MARGIN = 30;
 
@@ -23,41 +23,42 @@ public class Arena {
 		this.tileSize = 36;
 		this.tileSpacer = 0;
 		
-		walls = new ArrayList<Tile>();
-		createArena();
-	}
-
-	public Arena(File f) {
-		this.rows = 18;
-		this.cols = 32;
-		this.tileSize = 30;
-		this.tileSpacer = 1;
-		
-		walls = new ArrayList<Tile>();
-		createArena();
-		textFileInput(f);
-	}
-
-	public Arena(int fW, int fH) {
-		this.rows = 18;
-		this.cols = 32;
-		createArena();
-		this.width = fW;
-		this.height = fH;
-		this.tileSpacer = 1;
-		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
-		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
-		this.tileSpacer = 0;
-		this.tileSize = Math.min(width / cols, height / rows);
 		
 		walls = new ArrayList<Tile>();
 		createArena();
 	}
+
+//	public Arena(File f) {
+//		this.rows = 18;
+//		this.cols = 32;
+//		this.tileSize = 30;
+//		this.tileSpacer = 1;
+//
+//		walls = new ArrayList<Tile>();
+//		createArena();
+//		textFileInput(f);
+//	}
+//
+//	public Arena(int fW, int fH) {
+//		this.rows = 18;
+//		this.cols = 32;
+//		createArena();
+//		this.width = fW;
+//		this.height = fH;
+//		this.tileSpacer = 1;
+//		this.tileSize = (int) 3 * Math.min(width / (cols + (cols * tileSpacer)), height / (rows + (rows * tileSpacer)));
+//		this.tileSize = (int) Math.min(width / ((cols * tileSpacer)), height / ((rows * tileSpacer)));
+//		this.tileSpacer = 0;
+//		this.tileSize = Math.min(width / cols, height / rows);
+//
+//		walls = new ArrayList<Tile>();
+//		createArena();
+//	}
 
 	public Arena(PApplet app, int fW, int fH, File f) {
 		this(app, fW, fH);
-		
-		walls = new ArrayList<Tile>();
+
+//		walls = new ArrayList<Tile>();
 		textFileInput(f);
 	}
 
@@ -79,14 +80,46 @@ public class Arena {
 		}
 	}
 
-	public boolean collide(PVector tank) {
+	public boolean collide(PVector tank, int tSize) {
 		for (int i = 0; i < rows; i++) {
-			if (walls.get(i).collide(tank))
+			if (walls.get(i).collide(tank, tSize))
 				return true;
 		}
 		return false;
 	}
-	
+
+	public boolean collideLeft(PVector tank, int tSize) {
+		for (int i = 0; i < rows; i++) {
+			if (walls.get(i).collideLeft(tank, tSize))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean collideRight(PVector tank, int tSize) {
+		for (int i = 0; i < rows; i++) {
+			if (walls.get(i).collideRight(tank, tSize))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean collideUp(PVector tank, int tSize) {
+		for (int i = 0; i < rows; i++) {
+			if (walls.get(i).collideUp(tank, tSize))
+				return true;
+		}
+		return false;
+	}
+
+	public boolean collideDown(PVector tank, int tSize) {
+		for (int i = 0; i < rows; i++) {
+			if (walls.get(i).collideDown(tank, tSize))
+				return true;
+		}
+		return false;
+	}
+
 	public void textFileInput(File f) {
 		try {
 			try (Scanner s = new Scanner(f)) {
@@ -116,14 +149,17 @@ public class Arena {
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
-			System.out.println("Looks like you Better Call Saul!");
 		}
 	}
-	
+
 	public Tile[][] getGrid() {
 		return grid;
 	}
 	
+	public ArrayList<Tile> getWalls() {
+		return walls;
+	}
+
 	public int getWidth() {
 		return width;
 	}
