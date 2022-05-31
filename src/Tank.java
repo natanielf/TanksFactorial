@@ -72,8 +72,8 @@ public class Tank {
 
 	public void update() {
 		// TODO: Make the tank not get stuck when it touches a wall
-//		location.x = PApplet.constrain(location.x, Arena.MARGIN + 2, map.getWidth() - Arena.MARGIN);
-//		location.y = PApplet.constrain(location.y, Arena.MARGIN + 2, map.getHeight() - Arena.MARGIN);
+		location.x = PApplet.constrain(location.x, Arena.MARGIN + 2, map.getWidth() - Arena.MARGIN);
+		location.y = PApplet.constrain(location.y, Arena.MARGIN + 2, map.getHeight() - Arena.MARGIN);
 		if (!map.collide(location, size)) {
 			if (velocity.x != 0 && velocity.y != 0) {
 				location.x += velocity.x / Math.sqrt(2);
