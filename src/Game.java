@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
 
 import processing.core.PApplet;
 import processing.core.PFont;
@@ -17,6 +18,7 @@ public class Game extends PApplet {
 	private JSONObject config;
 	private Server server;
 	private Client client;
+	private int moe;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
 
 	public static void main(String[] args) {
@@ -29,6 +31,7 @@ public class Game extends PApplet {
 		this.arena = new Arena(this, FRAMEWIDTH, FRAMEHEIGHT, new File("./maps/test.txt"));
 		this.hud = new HUD(this, 1400, 150, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player = new Tank(this, 100, 100, 18, arena);
+		this.moe = 7;
 		createSurface();
 		parseArgs(args);
 		parseConfig();
@@ -62,6 +65,42 @@ public class Game extends PApplet {
 		paintOpponent();
 		hud.paint(player.getAmmo());
 		handleConnection();
+		playerKillOpponent();
+	}
+	
+	// TODO: Fix kill mechanics
+	public void playerKillOpponent() {
+		ArrayList<Bullet> pBullets = player.getBullets();
+		if (pBullets != null)  {
+			for (int i = 0; i < pBullets.size(); i++) {
+				float bX = pBullets.get(i).getX();
+				float bY = pBullets.get(i).getY();
+				float oX = opponent.getX();
+				float oY = opponent.getY();
+				int bRadius = pBullets.get(i).getSize() / 2;
+				int oTankRadius = opponent.getSize() / 2;
+				float distance = (float) Math.sqrt(Math.pow(bX - oX, 2) + Math.pow((bY - oY), 2));
+				if ((distance >= bRadius + oTankRadius - this.moe) && (distance <= bRadius + oTankRadius + this.moe)) {
+					opponent.setX(0);
+					opponent.setY(0);
+				}
+			}
+		}
+	}
+	
+	// TODO:
+	public void playerKillItself() {
+		
+	}
+	
+	// TODO:
+	public void opponentKillPlayer() {
+		
+	}
+	
+	// TODO:
+	public void opponentKillItself() {
+		
 	}
 
 	public void handleConnection() {

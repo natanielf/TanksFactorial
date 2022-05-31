@@ -9,7 +9,7 @@ public class Bullet {
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity;
-	private int size, startFrame, rCount, rLimit, type, moe;
+	private int size, startFrame, rCount, rLimit, moe;
 	private ArrayList<Tile> walls;
 	private Tile targetBlackTile;
 
@@ -22,7 +22,6 @@ public class Bullet {
 		this.startFrame = app.frameCount;
 		this.rCount = 0;
 		this.rLimit = 2;
-		this.type = 0;
 		this.moe = 15;
 		walls = arena.getWalls();
 		createTargetBlackTile();
@@ -34,21 +33,12 @@ public class Bullet {
 		location.y += velocity.y;
 		createTargetBlackTile();
 		if (this.targetBlackTile != null && collide() == true) {
-			if (collideLeft() == true || collideRight() == true)
-				setBulletColType(1);
-			else if (collideUp() == true || collideDown() == true)
-				setBulletColType(2);
-			switch (type) {
-			case 0:
-				break;
-			case 1:
+			if (collideLeft() == true || collideRight() == true) {
 				bounceX();
 				deadBullet();
-				break;
-			case 2:
+			} else if (collideUp() == true || collideDown() == true) {
 				bounceY();
 				deadBullet();
-				break;
 			}
 		}
 		app.fill(0);
@@ -158,10 +148,6 @@ public class Bullet {
 			velocity.y = 0;
 		}
 	}
-	
-	public void setBulletColType(int type) {
-		this.type = type;
-	}
 
 	public int getStartFrame() {
 		return this.startFrame;
@@ -174,5 +160,9 @@ public class Bullet {
 	public float getY() {
 		return location.y;
 	}
-
+	
+	public int getSize() {
+		return this.size;
+	}
+	
 }

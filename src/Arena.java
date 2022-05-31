@@ -22,8 +22,6 @@ public class Arena {
 		this.height = fH;
 		this.tileSize = 36;
 		this.tileSpacer = 0;
-		
-		
 		walls = new ArrayList<Tile>();
 		createArena();
 	}
@@ -57,8 +55,6 @@ public class Arena {
 
 	public Arena(PApplet app, int fW, int fH, File f) {
 		this(app, fW, fH);
-
-//		walls = new ArrayList<Tile>();
 		textFileInput(f);
 	}
 

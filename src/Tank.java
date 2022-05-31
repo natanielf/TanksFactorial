@@ -8,7 +8,7 @@ public class Tank {
 
 	protected PApplet app;
 	protected PVector location, velocity;
-	protected int ammo, maxAmmo, speed, size, type;
+	protected int ammo, maxAmmo, speed, size;
 	protected ArrayList<Bullet> bullets;
 
 	private Arena map;
@@ -24,7 +24,6 @@ public class Tank {
 		this.ammo = maxAmmo;
 		this.speed = 6;
 		this.size = s;
-		this.type = 0;
 		bullets = new ArrayList<>();
 		this.map = map;
 		walls = this.map.getWalls();
@@ -71,19 +70,8 @@ public class Tank {
 		velocity.y = 0;
 	}
 
-	public int getX() {
-		return (int) location.x;
-	}
-
-	public int getY() {
-		return (int) location.y;
-	}
-
-	public int getAmmo() {
-		return ammo;
-	}
-
 	public void update() {
+		// TODO: Make the tank not get stuck when it touches a wall
 		location.x = PApplet.constrain(location.x, Arena.MARGIN + 2, map.getWidth() - Arena.MARGIN);
 		location.y = PApplet.constrain(location.y, Arena.MARGIN + 2, map.getHeight() - Arena.MARGIN);
 		if (!map.collide(location, size)) {
@@ -97,22 +85,10 @@ public class Tank {
 		} else
 			createTargetBlackTile();
 			if (this.targetBlackTile != null) {
-				if (map.collideLeft(location, size) == true
-						|| map.collideRight(location, size) == true)
-					setTankColType(1);
-				else if (map.collideUp(location, size) == true
-						|| map.collideDown(location, size) == true)
-					setTankColType(2);
-				switch(type) {
-				case 0:
-					break;
-				case 1:
+				if (map.collideLeft(location, size) == true || map.collideRight(location, size) == true)
 					location.x = PApplet.constrain(location.x, targetBlackTile.getX(), targetBlackTile.getX() + targetBlackTile.getSize());
-					break;
-				case 2:
+				else if (map.collideUp(location, size) == true|| map.collideDown(location, size) == true)
 					location.y = PApplet.constrain(location.y, targetBlackTile.getY(), targetBlackTile.getY() + targetBlackTile.getSize());
-					break;
-				}
 			}
 	}
 
@@ -192,16 +168,32 @@ public class Tank {
 		// }
 		// }
 	}
+	
+	public int getX() {
+		return (int) location.x;
+	}
 
-	public void setTankColType(int type) {
-		this.type = type;
+	public int getY() {
+		return (int) location.y;
+	}
+
+	public int getAmmo() {
+		return this.ammo;
 	}
 	
-	public void setX(float x) {
+	public int getSize() {
+		return this.size;
+	}
+	
+	public ArrayList<Bullet> getBullets() {
+		return bullets;
+	}
+	
+	public void setX(int x) {
 		location.x = x;
 	}
 
-	public void setY(float y) {
+	public void setY(int y) {
 		location.y = y;
 	}
 
