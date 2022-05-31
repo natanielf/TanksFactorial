@@ -19,6 +19,7 @@ public class Game extends PApplet {
 	private Client client;
 	private int moe;
 	static final int FRAMEWIDTH = 1280, FRAMEHEIGHT = 720, FRAMERATE = 60;
+	private int sum;
 
 	public static void main(String[] args) {
 		String[] processingArgs = { "Tanks!" };
@@ -31,6 +32,7 @@ public class Game extends PApplet {
 		this.hud = new HUD(this, 1400, 150, FRAMEWIDTH, FRAMEHEIGHT);
 		this.player1 = new Tank(this, 100, 100, 18, arena);
 		this.moe = 7;
+		this.sum = 0;
 		createSurface();
 		parseArgs(args);
 		parseConfig();
@@ -56,20 +58,25 @@ public class Game extends PApplet {
 	}
 
 	// Used to update the frames of the game
-	@Override
+
 	public void draw() {
-		background(150);
-		arena.paint();
-		player1.paint();
-		paintOpponent();
-		hud.paint(player1.getAmmo());
-		handleConnection();
-		playerKillOpponent();
+		if (sum < 600) {
+			background(150);
+			arena.paint();
+			player1.paint();
+			paintOpponent();
+			hud.paint("AMMO: " + player1.getAmmo(), 1400, 300);
+			hud.paint("TIME: " + (600 - sum) / 60, 1400, 500);
+			handleConnection();
+			playerKillOpponent();
+			playerKillItself();
+			sum++;
+		}
 	}
-	
+
 	public void playerKillOpponent() {
 		ArrayList<Bullet> pBullets = player1.getBullets();
-		if (pBullets != null)  {
+		if (pBullets != null) {
 			for (int i = 0; i < pBullets.size(); i++) {
 				float bX = pBullets.get(i).getX();
 				float bY = pBullets.get(i).getY();
@@ -79,17 +86,18 @@ public class Game extends PApplet {
 				int oTankRadius = player2.getSize() / 2;
 				float distance = (float) Math.sqrt(Math.pow(bX - oX, 2) + Math.pow((bY - oY), 2));
 				if ((distance >= bRadius + oTankRadius - this.moe) && (distance <= bRadius + oTankRadius + this.moe)) {
+					sum = 0;
 					player2.setX(6000);
 					player2.setY(6000);
 				}
 			}
 		}
 	}
-	
-	// TODO:
+
 	public void playerKillItself() {
 		ArrayList<Bullet> pBullets = player1.getBullets();
-		if (pBullets != null)  {
+		int j = 1;
+		if (pBullets != null) {
 			for (int i = 0; i < pBullets.size(); i++) {
 				float bX = pBullets.get(i).getX();
 				float bY = pBullets.get(i).getY();
@@ -99,16 +107,23 @@ public class Game extends PApplet {
 				int pTankRadius = player1.getSize() / 2;
 				float distance = (float) Math.sqrt(Math.pow(bX - pX, 2) + Math.pow((bY - pY), 2));
 				if ((distance >= bRadius + pTankRadius - this.moe) && (distance <= bRadius + pTankRadius + this.moe)) {
-					player1.setX(6000);
-					player1.setY(6000);
+					j++;
+//					player1.setX(6000);
+//					player1.setY(6000);
 				}
 			}
+
+		}
+		if (j >= 3) {
+			player1.setX(6000);
+			player1.setY(6000);
 		}
 	}
-	
+
+	// TODO:
 	public void opponentKillPlayer() {
 		ArrayList<Bullet> pBullets = player1.getBullets();
-		if (pBullets != null)  {
+		if (pBullets != null) {
 			for (int i = 0; i < pBullets.size(); i++) {
 				float bX = pBullets.get(i).getX();
 				float bY = pBullets.get(i).getY();
@@ -124,11 +139,11 @@ public class Game extends PApplet {
 			}
 		}
 	}
-	
+
 	// TODO:
 	public void opponentKillItself() {
 		ArrayList<Bullet> pBullets = player1.getBullets();
-		if (pBullets != null)  {
+		if (pBullets != null) {
 			for (int i = 0; i < pBullets.size(); i++) {
 				float bX = pBullets.get(i).getX();
 				float bY = pBullets.get(i).getY();
@@ -162,21 +177,21 @@ public class Game extends PApplet {
 		this.config = new JSONObject();
 		for (String arg : args) {
 			switch (arg) {
-				case "--single":
-					config.put("singlePlayer", true);
-					break;
-				case "--server":
-					config.put("singlePlayer", false);
-					config.put("server", true);
-					break;
-				case "--client":
-					config.put("singlePlayer", false);
-					config.put("server", false);
-					break;
-				default:
-					if (arg.contains("."))
-						config.put("address", arg);
-					break;
+			case "--single":
+				config.put("singlePlayer", true);
+				break;
+			case "--server":
+				config.put("singlePlayer", false);
+				config.put("server", true);
+				break;
+			case "--client":
+				config.put("singlePlayer", false);
+				config.put("server", false);
+				break;
+			default:
+				if (arg.contains("."))
+					config.put("address", arg);
+				break;
 			}
 		}
 		// Default to a single player game if no arguments are provided
@@ -263,32 +278,32 @@ public class Game extends PApplet {
 	public void keyReleased() {
 		if (key != CODED) {
 			switch (Character.toUpperCase(key)) {
-				case 'W':
-					player1.stopY();
-					break;
-				case 'A':
-					player1.stopX();
-					break;
-				case 'S':
-					player1.stopY();
-					break;
-				case 'D':
-					player1.stopX();
-					break;
-				case 'I':
-					player2.stopY();
-					break;
-				case 'J':
-					player2.stopX();
-					break;
-				case 'K':
-					player2.stopY();
-					break;
-				case 'L':
-					player2.stopX();
-					break;
-				}
+			case 'W':
+				player1.stopY();
+				break;
+			case 'A':
+				player1.stopX();
+				break;
+			case 'S':
+				player1.stopY();
+				break;
+			case 'D':
+				player1.stopX();
+				break;
+			case 'I':
+				player2.stopY();
+				break;
+			case 'J':
+				player2.stopX();
+				break;
+			case 'K':
+				player2.stopY();
+				break;
+			case 'L':
+				player2.stopX();
+				break;
 			}
+		}
 	}
 
 	private void createSurface() {
@@ -432,4 +447,4 @@ public class Game extends PApplet {
 		};
 	}
 
-	}
+}

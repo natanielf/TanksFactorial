@@ -13,11 +13,11 @@ public class HUD {
 		this.h = frameHeight / 5;
 	}
 
-	public void paint(int ammo) {
+	public void paint(String text, int x, int y) {
 		app.fill(0, 0, 0);
 		app.rect(x - (w / 2), y - (h / 2), w, h);
 		app.fill(255, 255, 255);
-		app.text("AMMO: " + ammo, x, y);
+		app.text(text, x, y);
 	}
 
 }
