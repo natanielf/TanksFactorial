@@ -1,3 +1,4 @@
+import java.awt.Color;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
@@ -10,13 +11,13 @@ public class Tank {
 	protected PVector location, velocity;
 	protected int ammo, maxAmmo, speed, size;
 	protected ArrayList<Bullet> bullets;
+	private Color color;
 
 	private Arena map;
 	private ArrayList<Tile> walls;
 	private Tile targetBlackTile;
 
-
-	public Tank(PApplet app, int x, int y, int s, Arena map) {
+	public Tank(PApplet app, int x, int y, int s, String color, Arena map) {
 		this.app = app;
 		this.location = new PVector(x, y);
 		this.velocity = new PVector(0, 0);
@@ -24,12 +25,13 @@ public class Tank {
 		this.ammo = maxAmmo;
 		this.speed = 6;
 		this.size = s;
-		bullets = new ArrayList<>();
+		setColor(color);
 		this.map = map;
-		walls = this.map.getWalls();
+		this.bullets = new ArrayList<>();
+		this.walls = map.getWalls();
 		createTargetBlackTile();
 	}
-	
+
 	public void createTargetBlackTile() {
 		this.targetBlackTile = null;
 		float x = location.x;
@@ -40,10 +42,21 @@ public class Tank {
 			float yBlackTilePos = walls.get(i).getY();
 			int wSize = walls.get(i).getSize();
 			if ((x + size >= xBlackTilePos && x - size <= xBlackTilePos + wSize)
-			&& (y + size >= yBlackTilePos && y - size <= yBlackTilePos + wSize))
+					&& (y + size >= yBlackTilePos && y - size <= yBlackTilePos + wSize))
 				pTargetBlackTile = walls.get(i);
 		}
 		this.targetBlackTile = pTargetBlackTile;
+	}
+
+	public void setColor(String color) {
+		switch (color.toUpperCase()) {
+			case "BLUE":
+				this.color = Color.BLUE;
+				break;
+			case "RED":
+				this.color = Color.RED;
+				break;
+		}
 	}
 
 	public void moveEast() {
@@ -84,12 +97,14 @@ public class Tank {
 			}
 		} else
 			createTargetBlackTile();
-			if (this.targetBlackTile != null) {
-				if (map.collideLeft(location, size) == true || map.collideRight(location, size) == true)
-					location.x = PApplet.constrain(location.x, targetBlackTile.getX(), targetBlackTile.getX() + targetBlackTile.getSize());
-				else if (map.collideUp(location, size) == true|| map.collideDown(location, size) == true)
-					location.y = PApplet.constrain(location.y, targetBlackTile.getY(), targetBlackTile.getY() + targetBlackTile.getSize());
-			}
+		if (this.targetBlackTile != null) {
+			if (map.collideLeft(location, size) == true || map.collideRight(location, size) == true)
+				location.x = PApplet.constrain(location.x, targetBlackTile.getX(),
+						targetBlackTile.getX() + targetBlackTile.getSize());
+			else if (map.collideUp(location, size) == true || map.collideDown(location, size) == true)
+				location.y = PApplet.constrain(location.y, targetBlackTile.getY(),
+						targetBlackTile.getY() + targetBlackTile.getSize());
+		}
 	}
 
 	public void shoot(int mX, int mY) {
@@ -102,7 +117,7 @@ public class Tank {
 	public void paint() {
 		update();
 		app.strokeWeight(0);
-		setColor();
+		app.fill(color.getRed(), color.getGreen(), color.getBlue());
 		app.ellipse(location.x, location.y, size, size);
 		for (int i = 0; i < bullets.size(); i++) {
 			Bullet b = bullets.get(i);
@@ -113,10 +128,6 @@ public class Tank {
 			b.paint();
 		}
 		replenishAmmo();
-	}
-
-	public void setColor() {
-		app.fill(200, 0, 0);
 	}
 
 	public void replenishAmmo() {
@@ -168,7 +179,7 @@ public class Tank {
 		// }
 		// }
 	}
-	
+
 	public int getX() {
 		return (int) location.x;
 	}
@@ -180,15 +191,15 @@ public class Tank {
 	public int getAmmo() {
 		return this.ammo;
 	}
-	
+
 	public int getSize() {
 		return this.size;
 	}
-	
+
 	public ArrayList<Bullet> getBullets() {
 		return bullets;
 	}
-	
+
 	public void setX(int x) {
 		location.x = x;
 	}

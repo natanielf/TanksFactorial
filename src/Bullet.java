@@ -5,7 +5,7 @@ import processing.core.PApplet;
 import processing.core.PVector;
 
 public class Bullet {
-	
+
 	private PApplet app;
 	private Arena arena;
 	private PVector location, velocity;
@@ -54,7 +54,7 @@ public class Bullet {
 		else
 			return false;
 	}
-	
+
 	public void createTargetBlackTile() {
 		this.targetBlackTile = null;
 		float x = location.x;
@@ -70,7 +70,7 @@ public class Bullet {
 		}
 		this.targetBlackTile = pTargetBlackTile;
 	}
-	
+
 	public boolean collideLeft() {
 		float x = location.x;
 		float y = location.y;
@@ -117,19 +117,20 @@ public class Bullet {
 		float yBlackTilePos = targetBlackTile.getY();
 		int size = targetBlackTile.getSize();
 		if ((x >= xBlackTilePos && x <= xBlackTilePos + size)
-				&& (y - this.size >= yBlackTilePos + size - this.moe && y - this.size <= yBlackTilePos + size + this.moe))
+				&& (y - this.size >= yBlackTilePos + size - this.moe
+						&& y - this.size <= yBlackTilePos + size + this.moe))
 			return true;
 		else
 			return false;
 	}
-	
-//	public boolean ifKilled() {
-//		return true;
-//	}
-	
-//	public boolean kill() {
-//		
-//	}
+
+	// public boolean ifKilled() {
+	// return true;
+	// }
+
+	// public boolean kill() {
+	//
+	// }
 
 	public void bounceX() {
 		velocity.x *= -1;
@@ -143,7 +144,7 @@ public class Bullet {
 
 	public void deadBullet() {
 		if (rCount >= rLimit) {
-			location.x = 6000f; 
+			location.x = 6000f;
 			velocity.x = 0;
 			velocity.y = 0;
 		}
@@ -152,17 +153,17 @@ public class Bullet {
 	public int getStartFrame() {
 		return this.startFrame;
 	}
-	
+
 	public float getX() {
 		return location.x;
 	}
-	
+
 	public float getY() {
 		return location.y;
 	}
-	
+
 	public int getSize() {
 		return this.size;
 	}
-	
+
 }
