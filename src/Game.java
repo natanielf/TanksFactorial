@@ -4,7 +4,6 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 
 import processing.core.PApplet;
-import processing.core.PFont;
 import processing.core.PImage;
 import processing.core.PSurface;
 import processing.data.JSONObject;
