@@ -52,8 +52,7 @@ public class Game extends PApplet {
 		rectMode(CORNER);
 		ellipseMode(RADIUS);
 		frameRate(FRAMERATE);
-		PFont font = createFont("Arial", 48);
-		textFont(font);
+		textFont(createFont("Arial", 48));
 		textAlign(CENTER, CENTER);
 	}
 
